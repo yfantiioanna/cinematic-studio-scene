@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "@/assets/opio-logo.png";
 
 type Phase = "idle" | "flash" | "logo" | "moving" | "done";
 
@@ -11,9 +12,7 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
     const t1 = setTimeout(() => setPhase("flash"), 400);
     const t2 = setTimeout(() => setPhase("logo"), 400 + 250);
     const t3 = setTimeout(() => setPhase("moving"), 400 + 250 + 700 + 1000);
-    const t4 = setTimeout(() => {
-      setOverlayFade(true);
-    }, 400 + 250 + 700 + 1000 + 800);
+    const t4 = setTimeout(() => setOverlayFade(true), 400 + 250 + 700 + 1000 + 800);
     const t5 = setTimeout(() => {
       setPhase("done");
       document.body.style.overflow = "";
@@ -25,28 +24,7 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
     };
   }, [onComplete]);
 
-  if (phase === "done") {
-    return (
-      <div
-        className="font-serif"
-        style={{
-          position: "fixed",
-          top: 26,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          color: "#fff",
-          fontSize: 26,
-          letterSpacing: "0.4em",
-          zIndex: 100,
-          pointerEvents: "none",
-          fontWeight: 300,
-        }}
-      >
-        OPIO
-      </div>
-    );
-  }
+  if (phase === "done") return null;
 
   const showFlash = phase === "flash";
   const logoVisible = phase === "logo" || phase === "moving";
@@ -54,25 +32,22 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
 
   const logoStyle: React.CSSProperties = moved
     ? {
-        top: 26,
+        top: 17,
         left: 0,
         right: 0,
         transform: "translateY(0) scale(1)",
-        fontSize: 26,
-        letterSpacing: "0.4em",
+        height: 36,
       }
     : {
         top: "50%",
         left: 0,
         right: 0,
-        transform: `translateY(-50%) scale(${logoVisible ? 1 : 0.85})`,
-        fontSize: 140,
-        letterSpacing: "0.3em",
+        transform: `translateY(-50%) scale(${logoVisible ? 1 : 0.8})`,
+        height: 180,
       };
 
   return (
     <>
-      {/* Black overlay */}
       <div
         style={{
           position: "fixed",
@@ -84,57 +59,46 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
           pointerEvents: overlayFade ? "none" : "auto",
         }}
       >
-        {/* Diagonal line flashes */}
         <div
           style={{
             position: "absolute",
-            top: "20%",
-            left: "10%",
-            width: "60vw",
+            top: "50%",
+            left: "-10%",
+            width: "120vw",
             height: 1,
             background: "#fff",
-            filter: "blur(0.5px) drop-shadow(0 0 6px rgba(255,255,255,0.8))",
-            transform: "rotate(28deg)",
-            transformOrigin: "left center",
-            opacity: showFlash ? 1 : 0,
-            transition: "opacity 250ms ease",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "20%",
-            right: "10%",
-            width: "60vw",
-            height: 1,
-            background: "#fff",
-            filter: "blur(0.5px) drop-shadow(0 0 6px rgba(255,255,255,0.8))",
-            transform: "rotate(28deg)",
-            transformOrigin: "right center",
+            filter: "blur(0.5px) drop-shadow(0 0 6px rgba(255,255,255,0.85))",
+            transform: "rotate(-18deg)",
+            transformOrigin: "center",
             opacity: showFlash ? 1 : 0,
             transition: "opacity 250ms ease",
           }}
         />
       </div>
 
-      {/* Animated OPIO logo */}
       <div
-        className="font-serif"
         style={{
           position: "fixed",
-          textAlign: "center",
-          color: "#fff",
-          fontWeight: 300,
-          textTransform: "uppercase",
+          display: "flex",
+          justifyContent: "center",
           zIndex: 100,
           pointerEvents: "none",
           opacity: logoVisible ? 1 : 0,
           transition:
-            "opacity 700ms ease, transform 800ms cubic-bezier(0.65,0,0.35,1), top 800ms cubic-bezier(0.65,0,0.35,1), font-size 800ms cubic-bezier(0.65,0,0.35,1), letter-spacing 800ms cubic-bezier(0.65,0,0.35,1)",
+            "opacity 700ms ease, transform 1000ms cubic-bezier(0.65,0,0.35,1), top 1000ms cubic-bezier(0.65,0,0.35,1), height 1000ms cubic-bezier(0.65,0,0.35,1)",
           ...logoStyle,
         }}
       >
-        OPIO
+        <img
+          src={logo}
+          alt="OPIO"
+          style={{
+            height: "100%",
+            width: "auto",
+            display: "block",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
       </div>
     </>
   );

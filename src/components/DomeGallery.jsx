@@ -122,7 +122,10 @@ export default function DomeGallery({
   openedImageHeight = '350px',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
-  grayscale = true
+  grayscale = true,
+  autoRotate = true,
+  autoRotateSpeed = 0.015,
+  onUserDragStart
 }) {
   const rootRef = useRef(null);
   const mainRef = useRef(null);
@@ -142,6 +145,10 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const autoRotatePausedRef = useRef(false);
+  const autoResumeTimerRef = useRef(null);
+  const autoRAFRef = useRef(null);
+
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -255,6 +262,23 @@ export default function DomeGallery({
     applyTransform(rotationRef.current.x, rotationRef.current.y);
   }, []);
 
+  useEffect(() => {
+    if (!autoRotate) return;
+    const tick = () => {
+      if (!autoRotatePausedRef.current && !draggingRef.current && !openingRef.current) {
+        rotationRef.current.y = wrapAngleSigned(rotationRef.current.y + autoRotateSpeed);
+        applyTransform(rotationRef.current.x, rotationRef.current.y);
+      }
+      autoRAFRef.current = requestAnimationFrame(tick);
+    };
+    autoRAFRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (autoRAFRef.current) cancelAnimationFrame(autoRAFRef.current);
+      if (autoResumeTimerRef.current) clearTimeout(autoResumeTimerRef.current);
+    };
+  }, [autoRotate, autoRotateSpeed]);
+
+
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {
       cancelAnimationFrame(inertiaRAF.current);
@@ -300,6 +324,12 @@ export default function DomeGallery({
       onDragStart: ({ event }) => {
         if (focusedElRef.current) return;
         stopInertia();
+        autoRotatePausedRef.current = true;
+        if (autoResumeTimerRef.current) {
+          clearTimeout(autoResumeTimerRef.current);
+          autoResumeTimerRef.current = null;
+        }
+        if (onUserDragStart) onUserDragStart();
         const evt = event;
         draggingRef.current = true;
         movedRef.current = false;
@@ -339,6 +369,10 @@ export default function DomeGallery({
           if (Math.abs(vx) > 0.005 || Math.abs(vy) > 0.005) startInertia(vx, vy);
           if (movedRef.current) lastDragEndAt.current = performance.now();
           movedRef.current = false;
+          if (autoResumeTimerRef.current) clearTimeout(autoResumeTimerRef.current);
+          autoResumeTimerRef.current = setTimeout(() => {
+            autoRotatePausedRef.current = false;
+          }, 2000);
         }
       }
     },
