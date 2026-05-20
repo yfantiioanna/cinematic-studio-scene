@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "@/assets/opio-logo.png";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,11 +17,25 @@ export function Nav() {
         right: 0,
         height: 70,
         zIndex: 80,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         background: scrolled ? "rgba(13,10,10,0.4)" : "transparent",
         backdropFilter: scrolled ? "blur(8px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(8px)" : "none",
         transition: "background 400ms ease, backdrop-filter 400ms ease",
+        pointerEvents: "none",
       }}
-    />
+    >
+      <img
+        src={logo}
+        alt="OPIO"
+        style={{
+          height: 36,
+          width: "auto",
+          filter: "brightness(0) invert(1)",
+        }}
+      />
+    </nav>
   );
 }
