@@ -36,14 +36,86 @@ body {
 
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 800ms ease, transform 800ms ease;
+  transform: translateY(50px);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .reveal.in {
   opacity: 1;
   transform: translateY(0);
 }
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-stagger.in > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: 120ms; opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: 360ms; opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(5) { transition-delay: 480ms; opacity: 1; transform: translateY(0); }
+
+.about-rise {
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition: opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1), transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-rise.in { opacity: 1; transform: translateY(0) scale(1); }
+
+.draw-line {
+  height: 1px;
+  width: 100%;
+  background: #3D0A0F;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.draw-line.in { transform: scaleX(1); }
+
+.opio-field {
+  position: relative;
+  margin-bottom: 32px;
+}
+.opio-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--opio-greige);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.opio-field:focus-within::after { transform: scaleX(1); }
+
+.contact-box {
+  background: #110D0D;
+  border: 1px solid #3D0A0F;
+  padding: 60px;
+  max-width: 680px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+@media (max-width: 640px) {
+  .contact-box { padding: 32px; }
+}
+
+.gallery-hint {
+  text-align: center;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: #5C4A47;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 6px 0 12px;
+  transition: opacity 600ms ease;
+}
+.gallery-hint.hidden { opacity: 0; }
 
 .hero-mask {
   -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
