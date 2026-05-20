@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IntroOverlay } from "../components/IntroOverlay";
 import { Nav } from "../components/Nav";
 import DomeGallery from "../components/DomeGallery.jsx";
@@ -32,6 +32,7 @@ function Index() {
   const [hintHidden, setHintHidden] = useState(false);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
+  const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
 
   useEffect(() => {
@@ -80,7 +81,7 @@ function Index() {
 
   return (
     <div style={{ background: "#0D0A0A", color: "#fff", overflowX: "hidden" }}>
-      <IntroOverlay onComplete={() => setIntroDone(true)} />
+      <IntroOverlay onComplete={handleIntroComplete} />
       {introDone && <Nav />}
 
       {/* HERO VIDEO */}
