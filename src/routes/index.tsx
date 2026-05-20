@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IntroOverlay } from "../components/IntroOverlay";
 import { Nav } from "../components/Nav";
 import DomeGallery from "../components/DomeGallery.jsx";
@@ -29,26 +29,53 @@ const H2: React.CSSProperties = {
 
 function Index() {
   const [introDone, setIntroDone] = useState(false);
+  const [hintHidden, setHintHidden] = useState(false);
+  const contactBoxRef = useRef<HTMLDivElement>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
   useReveal();
 
   useEffect(() => {
-    if (introDone) {
-      // re-run observer after intro completes (elements may already be in viewport)
-      const els = document.querySelectorAll(".reveal");
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              e.target.classList.add("in");
-              io.unobserve(e.target);
-            }
+    if (!introDone) return;
+    const els = document.querySelectorAll(".reveal, .reveal-stagger, .about-rise, .draw-line");
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
           }
-        },
-        { threshold: 0.1 }
-      );
-      els.forEach((el) => io.observe(el));
-      return () => io.disconnect();
-    }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [introDone]);
+
+  // Mouse parallax on contact box
+  useEffect(() => {
+    const section = contactSectionRef.current;
+    const box = contactBoxRef.current;
+    if (!section || !box) return;
+    const onMove = (e: MouseEvent) => {
+      const r = box.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = (e.clientX - cx) / (r.width / 2);
+      const dy = (e.clientY - cy) / (r.height / 2);
+      const rotY = Math.max(-4, Math.min(4, dx * 4));
+      const rotX = Math.max(-4, Math.min(4, -dy * 4));
+      box.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    };
+    const onLeave = () => {
+      box.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+    };
+    section.addEventListener("mousemove", onMove);
+    section.addEventListener("mouseleave", onLeave);
+    return () => {
+      section.removeEventListener("mousemove", onMove);
+      section.removeEventListener("mouseleave", onLeave);
+    };
   }, [introDone]);
 
   return (
@@ -73,12 +100,7 @@ function Index() {
           muted
           loop
           playsInline
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
         <div
           style={{
@@ -93,12 +115,7 @@ function Index() {
       </section>
 
       {/* ABOUT */}
-      <section
-        style={{
-          background: "#0D0A0A",
-          padding: "120px 6vw",
-        }}
-      >
+      <section style={{ background: "#0D0A0A", padding: "120px 6vw" }} className="about-rise">
         <div
           style={{
             display: "grid",
@@ -109,7 +126,7 @@ function Index() {
             alignItems: "center",
           }}
         >
-          <div className="reveal">
+          <div className="reveal-stagger">
             <div style={SECTION_LABEL}>ΤΟ ΣΤΟΥΝΤΙΟ</div>
             <h2 style={{ ...H2, fontSize: "clamp(32px, 4.5vw, 52px)", marginTop: 28 }}>
               Ένας χώρος για κάθε δημιουργικό όραμα
@@ -157,15 +174,10 @@ function Index() {
           flexDirection: "column",
         }}
       >
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px 0 12px",
-            ...SECTION_LABEL,
-          }}
-        >
+        <div style={{ textAlign: "center", padding: "40px 0 6px", ...SECTION_LABEL }}>
           GALLERY
         </div>
+        <div className={`gallery-hint${hintHidden ? " hidden" : ""}`}>drag to explore</div>
         <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
           <DomeGallery
             images={[
@@ -182,9 +194,19 @@ function Index() {
             openedImageHeight="480px"
             imageBorderRadius="4px"
             openedImageBorderRadius="6px"
+            autoRotate={true}
+            autoRotateSpeed={0.015}
+            onUserDragStart={() => setHintHidden(true)}
           />
         </div>
       </section>
+
+      {/* DRAW LINE BETWEEN GALLERY & SERVICES */}
+      <div style={{ padding: "0 6vw", background: "#0D0A0A" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div className="draw-line" />
+        </div>
+      </div>
 
       {/* SERVICES */}
       <section style={{ background: "#0D0A0A", padding: "120px 6vw" }}>
@@ -196,19 +218,19 @@ function Index() {
             ΥΠΗΡΕΣΙΕΣ
           </div>
           <div
+            className="reveal-stagger"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
               gap: "0 64px",
             }}
           >
             {[
-              ["01", "Φωτογραφικό Στούντιο", "Πλήρης επαγγελματικός εξοπλισμός, ευέλικτος χώρος, φυσικό και τεχνητό φωτισμό."],
-              ["02", "Live Performances & Runway", "Χώρος για shows, concept projects και παραστάσεις κάθε κλίμακας."],
-              ["03", "Art Gallery", "Σύγχρονο περιβάλλον για εκθέσεις, καλλιτεχνικά projects και παρουσιάσεις έργων."],
-              ["04", "Workshops", "Υποστήριξη όλων των μορφών τέχνης και καλλιτεχνικών ομάδων."],
+              ["01", "Φωτογραφικό Στούντιο", "Επαγγελματικός εξοπλισμός και ευέλικτος χώρος για editorial, commercial και concept shoots."],
+              ["02", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
+              ["03", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
             ].map(([num, title, desc]) => (
-              <div key={num} className="service-card reveal">
+              <div key={num} className="service-card">
                 <div
                   style={{
                     fontFamily: '"Cormorant Garamond", serif',
@@ -251,33 +273,32 @@ function Index() {
       </section>
 
       {/* CONTACT */}
-      <section style={{ background: "#0D0A0A", padding: "120px 6vw" }}>
-        <div
-          className="reveal"
-          style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}
-        >
+      <section
+        ref={contactSectionRef}
+        style={{ background: "#0D0A0A", padding: "120px 6vw" }}
+      >
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 56 }}>
           <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
           <h2 style={{ ...H2, fontSize: "clamp(32px, 4vw, 48px)", marginTop: 24 }}>
             Ας μιλήσουμε
           </h2>
+        </div>
 
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            style={{ marginTop: 56, textAlign: "left" }}
-          >
-            <div style={{ marginBottom: 32 }}>
+        <div ref={contactBoxRef} className="contact-box reveal">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="opio-field">
               <label className="opio-label" htmlFor="name">Ονοματεπώνυμο</label>
               <input id="name" type="text" className="opio-input" />
             </div>
-            <div style={{ marginBottom: 32 }}>
+            <div className="opio-field">
               <label className="opio-label" htmlFor="email">Email</label>
               <input id="email" type="email" className="opio-input" />
             </div>
-            <div style={{ marginBottom: 32 }}>
+            <div className="opio-field">
               <label className="opio-label" htmlFor="subject">Θέμα</label>
               <input id="subject" type="text" className="opio-input" />
             </div>
-            <div style={{ marginBottom: 40 }}>
+            <div className="opio-field" style={{ marginBottom: 40 }}>
               <label className="opio-label" htmlFor="message">Μήνυμα</label>
               <textarea
                 id="message"
@@ -316,11 +337,12 @@ function Index() {
 
           <div
             style={{
-              marginTop: 56,
+              marginTop: 48,
               color: "#7A6560",
               fontSize: 14,
               lineHeight: 2,
               fontWeight: 300,
+              textAlign: "center",
             }}
           >
             <div>T. 6975526194</div>
