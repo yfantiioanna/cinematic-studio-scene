@@ -262,6 +262,23 @@ export default function DomeGallery({
     applyTransform(rotationRef.current.x, rotationRef.current.y);
   }, []);
 
+  useEffect(() => {
+    if (!autoRotate) return;
+    const tick = () => {
+      if (!autoRotatePausedRef.current && !draggingRef.current && !openingRef.current) {
+        rotationRef.current.y = wrapAngleSigned(rotationRef.current.y + autoRotateSpeed);
+        applyTransform(rotationRef.current.x, rotationRef.current.y);
+      }
+      autoRAFRef.current = requestAnimationFrame(tick);
+    };
+    autoRAFRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (autoRAFRef.current) cancelAnimationFrame(autoRAFRef.current);
+      if (autoResumeTimerRef.current) clearTimeout(autoResumeTimerRef.current);
+    };
+  }, [autoRotate, autoRotateSpeed]);
+
+
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {
       cancelAnimationFrame(inertiaRAF.current);
@@ -307,6 +324,12 @@ export default function DomeGallery({
       onDragStart: ({ event }) => {
         if (focusedElRef.current) return;
         stopInertia();
+        autoRotatePausedRef.current = true;
+        if (autoResumeTimerRef.current) {
+          clearTimeout(autoResumeTimerRef.current);
+          autoResumeTimerRef.current = null;
+        }
+        if (onUserDragStart) onUserDragStart();
         const evt = event;
         draggingRef.current = true;
         movedRef.current = false;
