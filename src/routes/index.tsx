@@ -80,7 +80,7 @@ function Index() {
   }, [introDone]);
 
   return (
-    <div style={{ background: "#0D0A0A", color: "#fff", overflowX: "hidden" }}>
+    <div style={{ background: "#110608", color: "#fff", overflowX: "hidden" }}>
       <IntroOverlay onComplete={handleIntroComplete} />
       {introDone && <Nav />}
 
@@ -116,7 +116,7 @@ function Index() {
       </section>
 
       {/* ABOUT */}
-      <section style={{ background: "#0D0A0A", padding: "120px 6vw" }} className="about-rise">
+      <section style={{ background: "#110608", padding: "120px 6vw" }} className="about-rise">
         <div
           style={{
             display: "grid",
@@ -169,7 +169,7 @@ function Index() {
         className="gallery-section"
         style={{
           height: "100vh",
-          background: "#0D0A0A",
+          background: "#110608",
           position: "relative",
           display: "flex",
           flexDirection: "column",
@@ -189,7 +189,7 @@ function Index() {
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-scaled.jpg",
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-1.jpg",
             ]}
-            overlayBlurColor="#0D0A0A"
+            overlayBlurColor="#110608"
             grayscale={true}
             openedImageWidth="380px"
             openedImageHeight="480px"
@@ -203,14 +203,14 @@ function Index() {
       </section>
 
       {/* DRAW LINE BETWEEN GALLERY & SERVICES */}
-      <div style={{ padding: "0 6vw", background: "#0D0A0A" }}>
+      <div style={{ padding: "0 6vw", background: "#110608" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="draw-line" />
         </div>
       </div>
 
       {/* SERVICES */}
-      <section style={{ background: "#0D0A0A", padding: "120px 6vw" }}>
+      <section style={{ background: "#110608", padding: "120px 6vw" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             className="reveal"
@@ -276,7 +276,7 @@ function Index() {
       {/* CONTACT */}
       <section
         ref={contactSectionRef}
-        style={{ background: "#0D0A0A", padding: "120px 6vw" }}
+        style={{ background: "#110608", padding: "120px 6vw" }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 56 }}>
           <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
@@ -354,7 +354,7 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#0D0A0A", padding: "48px 6vw 56px" }}>
+      <footer style={{ background: "#110608", padding: "48px 6vw 56px" }}>
         <div className="section-rule" style={{ maxWidth: 1200, margin: "0 auto 32px" }} />
         <div
           style={{
