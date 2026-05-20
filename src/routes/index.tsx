@@ -81,7 +81,7 @@ function Index() {
   return (
     <div style={{ background: "#0D0A0A", color: "#fff", overflowX: "hidden" }}>
       <IntroOverlay onComplete={() => setIntroDone(true)} />
-      <Nav />
+      {introDone && <Nav />}
 
       {/* HERO VIDEO */}
       <section
