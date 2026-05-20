@@ -369,6 +369,10 @@ export default function DomeGallery({
           if (Math.abs(vx) > 0.005 || Math.abs(vy) > 0.005) startInertia(vx, vy);
           if (movedRef.current) lastDragEndAt.current = performance.now();
           movedRef.current = false;
+          if (autoResumeTimerRef.current) clearTimeout(autoResumeTimerRef.current);
+          autoResumeTimerRef.current = setTimeout(() => {
+            autoRotatePausedRef.current = false;
+          }, 2000);
         }
       }
     },
