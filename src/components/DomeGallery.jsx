@@ -122,7 +122,10 @@ export default function DomeGallery({
   openedImageHeight = '350px',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
-  grayscale = true
+  grayscale = true,
+  autoRotate = true,
+  autoRotateSpeed = 0.015,
+  onUserDragStart
 }) {
   const rootRef = useRef(null);
   const mainRef = useRef(null);
@@ -142,6 +145,10 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const autoRotatePausedRef = useRef(false);
+  const autoResumeTimerRef = useRef(null);
+  const autoRAFRef = useRef(null);
+
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
