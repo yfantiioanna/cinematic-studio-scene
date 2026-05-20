@@ -118,7 +118,7 @@ function Index() {
       </section>
 
       {/* ABOUT */}
-      <section style={{ background: "#110608", padding: "120px 6vw" }} className="about-rise">
+      <section style={{ background: "#110608", padding: "60px 6vw" }} className="about-rise">
         <div
           style={{
             display: "grid",
@@ -177,7 +177,7 @@ function Index() {
           flexDirection: "column",
         }}
       >
-        <div style={{ textAlign: "center", padding: "40px 0 6px", ...SECTION_LABEL }}>
+        <div style={{ textAlign: "center", padding: "20px 0 6px", ...SECTION_LABEL }}>
           GALLERY
         </div>
         <div className={`gallery-hint${hintHidden ? " hidden" : ""}`}>drag to explore</div>
@@ -212,11 +212,11 @@ function Index() {
       </div>
 
       {/* SERVICES */}
-      <section style={{ background: "#110608", padding: "120px 6vw" }}>
+      <section style={{ background: "#110608", padding: "60px 6vw" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             className="reveal"
-            style={{ ...SECTION_LABEL, textAlign: "center", marginBottom: 72 }}
+            style={{ ...SECTION_LABEL, textAlign: "center", marginBottom: 36 }}
           >
             ΥΠΗΡΕΣΙΕΣ
           </div>
@@ -278,9 +278,9 @@ function Index() {
       {/* CONTACT */}
       <section
         ref={contactSectionRef}
-        style={{ background: "#110608", padding: "120px 6vw" }}
+        style={{ background: "#110608", padding: "60px 6vw" }}
       >
-        <div className="reveal" style={{ textAlign: "center", marginBottom: 56 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
           <h2 style={{ ...H2, fontSize: "clamp(32px, 4vw, 48px)", marginTop: 24 }}>
             Ας μιλήσουμε
@@ -356,8 +356,8 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#110608", padding: "48px 6vw 56px" }}>
-        <div className="section-rule" style={{ maxWidth: 1200, margin: "0 auto 32px" }} />
+      <footer style={{ background: "#110608", padding: "24px 6vw 28px" }}>
+        <div className="section-rule" style={{ maxWidth: 1200, margin: "0 auto 16px" }} />
         <div
           style={{
             display: "flex",
