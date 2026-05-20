@@ -80,9 +80,11 @@ function Index() {
   }, [introDone]);
 
   return (
-    <div style={{ background: "#110608", color: "#fff", overflowX: "hidden" }}>
+    <div style={{ background: "#110608", color: "#fff", overflowX: "hidden", position: "relative" }}>
+      <div className="grain-overlay" aria-hidden="true" />
       <IntroOverlay onComplete={handleIntroComplete} />
       {introDone && <Nav />}
+
 
       {/* HERO VIDEO */}
       <section
