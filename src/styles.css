@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap");
 
 :root {
-  --opio-bg: #0D0A0A;
+  --opio-bg: #110608;
   --opio-burgundy: #3D0A0F;
   --opio-slate: #4A5568;
   --opio-greige: #A89A8F;
@@ -29,6 +29,27 @@ body {
   font-family: "DM Sans", sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Film grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+  animation: grainShift 8s steps(8) infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes grainShift {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -60px 30px; }
+  40%  { background-position: 80px -40px; }
+  60%  { background-position: -40px -80px; }
+  80%  { background-position: 60px 60px; }
+  100% { background-position: 0 0; }
 }
 
 .font-serif { font-family: "Cormorant Garamond", serif; }
