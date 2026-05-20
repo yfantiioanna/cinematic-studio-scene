@@ -15,7 +15,7 @@ export function Nav() {
         top: 0,
         left: 0,
         right: 0,
-        height: 70,
+        height: 160,
         zIndex: 80,
         display: "flex",
         alignItems: "center",
@@ -31,7 +31,7 @@ export function Nav() {
         src={logo}
         alt="OPIO"
         style={{
-          height: 36,
+          height: 144,
           width: "auto",
           filter: "brightness(0) invert(1)",
         }}
