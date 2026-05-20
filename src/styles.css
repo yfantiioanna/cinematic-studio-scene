@@ -1,0 +1,103 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap");
+
+:root {
+  --opio-bg: #0D0A0A;
+  --opio-burgundy: #3D0A0F;
+  --opio-slate: #4A5568;
+  --opio-greige: #A89A8F;
+  --opio-mocha: #7A6560;
+  --opio-darkmocha: #5C4A47;
+  --color-background: var(--opio-bg);
+  --color-foreground: #ffffff;
+  --color-border: #5C4A47;
+}
+
+* {
+  border-color: var(--color-border);
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--opio-bg);
+  color: #ffffff;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif { font-family: "Cormorant Garamond", serif; }
+.font-sans  { font-family: "DM Sans", sans-serif; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 800ms ease, transform 800ms ease;
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-mask {
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+          mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.gallery-section {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.section-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--opio-darkmocha);
+}
+
+.opio-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--opio-darkmocha);
+  color: var(--opio-greige);
+  font-family: "DM Sans", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  padding: 12px 0;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 400ms ease;
+}
+.opio-input:focus { border-bottom-color: var(--opio-greige); }
+.opio-input::placeholder { color: #5C4A47; }
+
+.opio-label {
+  display: block;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--opio-mocha);
+  margin-bottom: 8px;
+}
+
+.service-card {
+  border-top: 1px solid var(--opio-burgundy);
+  padding: 28px 0 36px;
+  transition: border-color 400ms ease;
+}
+.service-card:hover { border-top-color: var(--opio-greige); }
+
+.social-link {
+  color: var(--opio-mocha);
+  transition: color 300ms ease;
+  text-decoration: none;
+}
+.social-link:hover { color: var(--opio-greige); }
