@@ -256,8 +256,9 @@ function Index() {
               }}
             >
               {[
-                ["01", "Events & Performances", "Live performances, runway shows, concept projects and productions of every scale."],
-                ["02", "Showroom", "Permanent home to two clothing brands — a space where fashion meets art."],
+                ["01", "Photography Studio", "A versatile, fully-equipped studio space designed for fashion, portrait, product and editorial photography."],
+                ["02", "Events & Performances", "Live performances, runway shows, concept projects and productions of every scale."],
+                ["03", "Showroom", "Permanent home to two clothing brands — a space where fashion meets art."],
               ].map(([num, title, desc]) => (
                 <div key={num} className="service-card">
                   <div
