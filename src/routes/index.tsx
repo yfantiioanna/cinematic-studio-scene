@@ -232,12 +232,6 @@ function Index() {
         </div>
       </section>
 
-      {/* DRAW LINE BETWEEN GALLERY & SERVICES */}
-      <div style={{ padding: "0 6vw", background: "#110608" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div className="draw-line" />
-        </div>
-      </div>
 
       {/* SERVICES */}
       <section style={{ background: "#110608", padding: "60px 6vw" }}>
