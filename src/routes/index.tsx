@@ -257,9 +257,8 @@ function Index() {
             }}
           >
             {[
-              ["01", "Φωτογραφικό Στούντιο", "Επαγγελματικός εξοπλισμός και ευέλικτος χώρος για editorial, commercial και concept shoots."],
-              ["02", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
-              ["03", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
+              ["01", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
+              ["02", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
             ].map(([num, title, desc]) => (
               <div key={num} className="service-card">
                 <div
