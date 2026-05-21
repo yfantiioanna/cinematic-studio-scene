@@ -241,7 +241,7 @@ function Index() {
             className="reveal"
             style={{ ...SECTION_LABEL, textAlign: "center", marginBottom: 36 }}
           >
-            ΥΠΗΡΕΣΙΕΣ
+            SERVICES
           </div>
           <div className="services-card reveal">
             <div
@@ -253,8 +253,8 @@ function Index() {
               }}
             >
               {[
-                ["01", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
-                ["02", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
+                ["01", "Events & Performances", "Live performances, runway shows, concept projects and productions of every scale."],
+                ["02", "Showroom", "Permanent home to two clothing brands — a space where fashion meets art."],
               ].map(([num, title, desc]) => (
                 <div key={num} className="service-card">
                   <div
