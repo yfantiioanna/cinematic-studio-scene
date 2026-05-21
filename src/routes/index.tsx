@@ -26,7 +26,6 @@ import g20 from "../assets/gallery/g20.jpg";
 import g21 from "../assets/gallery/g21.jpg";
 import g22 from "../assets/gallery/g22.jpg";
 import g23 from "../assets/gallery/g23.jpg";
-import ReflectiveCard from "../components/ReflectiveCard.jsx";
 import contactBg from "../assets/gallery/g3.jpg";
 import { useReveal } from "../hooks/useReveal";
 
@@ -384,21 +383,6 @@ function Index() {
             <div style={{ marginTop: 8 }}>Ζεφύρων 3, Θεσσαλονίκη</div>
           </div>
         </div>
-          <div className="reflective-card-wrap reveal">
-            <ReflectiveCard
-              overlayColor="rgba(0, 0, 0, 0.25)"
-              blurStrength={10}
-              metalness={0.85}
-              roughness={0.5}
-              glassDistortion={12}
-              grayscale={0.6}
-              color="#ffffff"
-              name="OPIO CONCEPT STUDIO"
-              role="Ζεφύρων 3, Θεσσαλονίκη"
-              idLabel="CONTACT"
-              idValue="6975526194"
-            />
-          </div>
         </div>
       </section>
 
