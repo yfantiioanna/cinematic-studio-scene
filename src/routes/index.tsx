@@ -177,7 +177,7 @@ function Index() {
           </div>
           <div className="reveal" style={{ overflow: "hidden" }}>
             <img
-              src="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-scaled.jpg"
+              src={studioImg}
               alt="OPIO studio interior"
               style={{
                 width: "100%",
