@@ -193,7 +193,6 @@ function Index() {
 
       {/* GALLERY */}
       <section
-        className="gallery-section"
         style={{
           height: "100vh",
           background: "#110608",
@@ -206,7 +205,7 @@ function Index() {
           GALLERY
         </div>
         <div className={`gallery-hint${hintHidden ? " hidden" : ""}`}>drag to explore</div>
-        <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
+        <div className="gallery-section" style={{ flex: 1, minHeight: 0, position: "relative" }}>
           <DomeGallery
             images={[
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-scaled.jpg",
