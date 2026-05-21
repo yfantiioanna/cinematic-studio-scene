@@ -306,9 +306,9 @@ function Index() {
         style={{ padding: "40px 6vw", backgroundImage: `url(${contactBg})` }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
-          <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
+          <div style={SECTION_LABEL}>CONTACT</div>
           <h2 style={{ ...H2, fontSize: "clamp(32px, 4vw, 48px)", marginTop: 24 }}>
-            Ας μιλήσουμε
+            Let's talk
           </h2>
         </div>
 
