@@ -111,7 +111,7 @@ main.sphere-main {
   object-fit: cover;
   pointer-events: none;
   backface-visibility: hidden;
-  filter: var(--image-filter, none);
+  filter: none !important;
 }
 
 .viewer {
