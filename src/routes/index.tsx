@@ -155,9 +155,9 @@ function Index() {
           }}
         >
           <div className="reveal-stagger">
-            <div style={SECTION_LABEL}>ΤΟ ΣΤΟΥΝΤΙΟ</div>
+            <div style={SECTION_LABEL}>THE STUDIO</div>
             <h2 style={{ ...H2, fontSize: "clamp(32px, 4.5vw, 52px)", marginTop: 28 }}>
-              Ένας χώρος για κάθε δημιουργικό όραμα
+              A space for every creative vision
             </h2>
             <p
               style={{
@@ -169,10 +169,10 @@ function Index() {
                 maxWidth: 560,
               }}
             >
-              Το OPIO Concept Studio είναι μια πολυδιάστατη καλλιτεχνική καινοτομία στη
-              Θεσσαλονίκη. Σχεδιασμένο για φωτογραφικό στούντιο, live performances, runway
-              shows, workshops και εκθέσεις τέχνης — το OPIO προσφέρει έναν χώρο υψηλής
-              αισθητικής για κάθε μορφή δημιουργίας.
+              OPIO Concept Studio is a multidimensional artistic innovation in
+              Thessaloniki. Designed for photo shoots, live performances, runway
+              shows, workshops and art exhibitions — OPIO offers a space of refined
+              aesthetics for every form of creation.
             </p>
           </div>
           <div className="reveal" style={{ overflow: "hidden" }}>
