@@ -360,7 +360,7 @@ function Index() {
                 ((e.currentTarget as HTMLButtonElement).style.background = "#3D0A0F")
               }
             >
-              Αποστολή
+              Send
             </button>
           </form>
 
