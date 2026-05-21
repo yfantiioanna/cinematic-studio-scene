@@ -376,7 +376,7 @@ function Index() {
           >
             <div>T. 6975526194</div>
             <div>E. info@opioconceptstudio.gr</div>
-            <div style={{ marginTop: 8 }}>Ζεφύρων 3, Θεσσαλονίκη</div>
+            <div style={{ marginTop: 8 }}>Zefyron 3, Thessaloniki</div>
           </div>
         </div>
         </div>
