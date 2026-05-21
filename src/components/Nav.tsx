@@ -31,7 +31,7 @@ export function Nav() {
         src={logo}
         alt="OPIO"
         style={{
-          height: 144,
+          height: 100,
           width: "auto",
           filter: "brightness(0) invert(1)",
         }}
