@@ -27,6 +27,7 @@ import g21 from "../assets/gallery/g21.jpg";
 import g22 from "../assets/gallery/g22.jpg";
 import g23 from "../assets/gallery/g23.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
+import studioImg from "../assets/studio.jpg";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
