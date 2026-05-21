@@ -234,7 +234,7 @@ function Index() {
 
 
       {/* SERVICES */}
-      <section style={{ background: "#1A0B0D", padding: "60px 6vw" }}>
+      <section style={{ background: "#110608", padding: "60px 6vw" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             className="reveal"
@@ -242,56 +242,58 @@ function Index() {
           >
             ΥΠΗΡΕΣΙΕΣ
           </div>
-          <div
-            className="reveal-stagger"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "0 64px",
-            }}
-          >
-            {[
-              ["01", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
-              ["02", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
-            ].map(([num, title, desc]) => (
-              <div key={num} className="service-card">
-                <div
-                  style={{
-                    fontFamily: '"Cormorant Garamond", serif',
-                    fontSize: 13,
-                    color: "#5C4A47",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.3em",
-                    marginBottom: 16,
-                  }}
-                >
-                  {num}
+          <div className="services-card reveal">
+            <div
+              className="reveal-stagger"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: "0 64px",
+              }}
+            >
+              {[
+                ["01", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
+                ["02", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
+              ].map(([num, title, desc]) => (
+                <div key={num} className="service-card">
+                  <div
+                    style={{
+                      fontFamily: '"Cormorant Garamond", serif',
+                      fontSize: 13,
+                      color: "#5C4A47",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.3em",
+                      marginBottom: 16,
+                    }}
+                  >
+                    {num}
+                  </div>
+                  <h3
+                    style={{
+                      margin: 0,
+                      fontFamily: '"DM Sans", sans-serif',
+                      fontSize: 20,
+                      fontWeight: 400,
+                      color: "#fff",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {title}
+                  </h3>
+                  <p
+                    style={{
+                      marginTop: 16,
+                      fontSize: 14,
+                      color: "#A89A8F",
+                      lineHeight: 1.7,
+                      fontWeight: 300,
+                    }}
+                  >
+                    {desc}
+                  </p>
                 </div>
-                <h3
-                  style={{
-                    margin: 0,
-                    fontFamily: '"DM Sans", sans-serif',
-                    fontSize: 20,
-                    fontWeight: 400,
-                    color: "#fff",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {title}
-                </h3>
-                <p
-                  style={{
-                    marginTop: 16,
-                    fontSize: 14,
-                    color: "#A89A8F",
-                    lineHeight: 1.7,
-                    fontWeight: 300,
-                  }}
-                >
-                  {desc}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
