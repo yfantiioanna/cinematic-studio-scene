@@ -26,6 +26,10 @@ import g20 from "../assets/gallery/g20.jpg";
 import g21 from "../assets/gallery/g21.jpg";
 import g22 from "../assets/gallery/g22.jpg";
 import g23 from "../assets/gallery/g23.jpg";
+import g24 from "../assets/gallery/g24.jpg";
+import g25 from "../assets/gallery/g25.jpg";
+import g26 from "../assets/gallery/g26.jpg";
+import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
 import { useReveal } from "../hooks/useReveal";
@@ -216,7 +220,7 @@ function Index() {
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-1.jpg",
               g1, g2, g3, g4, g5, g6, g7, g8, g9, g10,
               g11, g12, g13, g14, g15, g16, g17, g18, g19, g20,
-              g21, g22, g23,
+              g21, g22, g23, g24, g25, g26, g27,
             ]}
             overlayBlurColor="#110608"
             grayscale={false}
