@@ -15,7 +15,7 @@ export function Nav() {
         top: 0,
         left: 0,
         right: 0,
-        height: 160,
+        height: 112,
         zIndex: 80,
         display: "flex",
         alignItems: "center",
