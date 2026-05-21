@@ -26,7 +26,7 @@ body {
   margin: 0;
   background-color: var(--opio-bg);
   color: #ffffff;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Play", sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
@@ -52,8 +52,8 @@ body {
   100% { background-position: 0 0; }
 }
 
-.font-serif { font-family: "Cormorant Garamond", serif; }
-.font-sans  { font-family: "DM Sans", sans-serif; }
+.font-serif { font-family: "Play", sans-serif; }
+.font-sans  { font-family: "Play", sans-serif; }
 
 .reveal {
   opacity: 0;
@@ -119,7 +119,7 @@ body {
 
 .gallery-hint {
   text-align: center;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Play", sans-serif;
   font-size: 11px;
   color: #5C4A47;
   letter-spacing: 0.3em;
@@ -151,7 +151,7 @@ body {
   border: none;
   border-bottom: 1px solid var(--opio-darkmocha);
   color: var(--opio-greige);
-  font-family: "DM Sans", sans-serif;
+  font-family: "Play", sans-serif;
   font-weight: 300;
   font-size: 15px;
   padding: 12px 0;
@@ -164,7 +164,7 @@ body {
 
 .opio-label {
   display: block;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Play", sans-serif;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.25em;

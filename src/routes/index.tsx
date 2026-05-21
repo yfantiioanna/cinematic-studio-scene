@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
 });
 
 const SECTION_LABEL: React.CSSProperties = {
-  fontFamily: '"Cormorant Garamond", serif',
+  fontFamily: '"Play", sans-serif',
   fontWeight: 300,
   fontSize: 13,
   textTransform: "uppercase",
@@ -44,7 +44,7 @@ const SECTION_LABEL: React.CSSProperties = {
 };
 
 const H2: React.CSSProperties = {
-  fontFamily: '"Cormorant Garamond", serif',
+  fontFamily: '"Play", sans-serif',
   fontWeight: 300,
   color: "#fff",
   letterSpacing: "0.02em",
@@ -259,7 +259,7 @@ function Index() {
                 <div key={num} className="service-card">
                   <div
                     style={{
-                      fontFamily: '"Cormorant Garamond", serif',
+                      fontFamily: '"Play", sans-serif',
                       fontSize: 13,
                       color: "#5C4A47",
                       textTransform: "uppercase",
@@ -272,7 +272,7 @@ function Index() {
                   <h3
                     style={{
                       margin: 0,
-                      fontFamily: '"DM Sans", sans-serif',
+                      fontFamily: '"Play", sans-serif',
                       fontSize: 20,
                       fontWeight: 400,
                       color: "#fff",
@@ -345,7 +345,7 @@ function Index() {
                 border: "none",
                 borderRadius: 0,
                 padding: "20px 24px",
-                fontFamily: '"Cormorant Garamond", serif',
+                fontFamily: '"Play", sans-serif',
                 fontWeight: 400,
                 fontSize: 16,
                 letterSpacing: "0.3em",
@@ -398,7 +398,7 @@ function Index() {
             href="https://www.facebook.com/profile.php?id=61566384603284"
             target="_blank"
             rel="noreferrer"
-            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: 13, letterSpacing: "0.15em" }}
+            style={{ fontFamily: '"Play", sans-serif', fontSize: 13, letterSpacing: "0.15em" }}
           >
             Facebook
           </a>
@@ -407,7 +407,7 @@ function Index() {
             href="https://www.instagram.com/opio_concept_studio"
             target="_blank"
             rel="noreferrer"
-            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: 13, letterSpacing: "0.15em" }}
+            style={{ fontFamily: '"Play", sans-serif', fontSize: 13, letterSpacing: "0.15em" }}
           >
             Instagram
           </a>
@@ -418,7 +418,7 @@ function Index() {
             color: "#5C4A47",
             fontSize: 12,
             letterSpacing: "0.15em",
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Play", sans-serif',
           }}
         >
           OPIO Concept Studio © 2025
