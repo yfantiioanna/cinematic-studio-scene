@@ -13,6 +13,16 @@ import g7 from "../assets/gallery/g7.jpg";
 import g8 from "../assets/gallery/g8.jpg";
 import g9 from "../assets/gallery/g9.jpg";
 import g10 from "../assets/gallery/g10.jpg";
+import g11 from "../assets/gallery/g11.jpg";
+import g12 from "../assets/gallery/g12.jpg";
+import g13 from "../assets/gallery/g13.jpg";
+import g14 from "../assets/gallery/g14.jpg";
+import g15 from "../assets/gallery/g15.jpg";
+import g16 from "../assets/gallery/g16.jpg";
+import g17 from "../assets/gallery/g17.jpg";
+import g18 from "../assets/gallery/g18.jpg";
+import g19 from "../assets/gallery/g19.jpg";
+import g20 from "../assets/gallery/g20.jpg";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -201,6 +211,7 @@ function Index() {
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-scaled.jpg",
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-1.jpg",
               g1, g2, g3, g4, g5, g6, g7, g8, g9, g10,
+              g11, g12, g13, g14, g15, g16, g17, g18, g19, g20,
             ]}
             overlayBlurColor="#110608"
             grayscale={true}
