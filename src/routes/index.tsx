@@ -234,7 +234,7 @@ function Index() {
 
 
       {/* SERVICES */}
-      <section style={{ background: "#110608", padding: "60px 6vw" }}>
+      <section style={{ background: "#1A0B0D", padding: "60px 6vw" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             className="reveal"
