@@ -308,7 +308,7 @@ function Index() {
       <section
         ref={contactSectionRef}
         className="contact-bg"
-        style={{ padding: "60px 6vw", backgroundImage: `url(${contactBg})` }}
+        style={{ padding: "40px 6vw", backgroundImage: `url(${contactBg})` }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
@@ -332,11 +332,11 @@ function Index() {
               <label className="opio-label" htmlFor="subject">Θέμα</label>
               <input id="subject" type="text" className="opio-input" />
             </div>
-            <div className="opio-field" style={{ marginBottom: 40 }}>
+            <div className="opio-field" style={{ marginBottom: 20 }}>
               <label className="opio-label" htmlFor="message">Μήνυμα</label>
               <textarea
                 id="message"
-                rows={5}
+                rows={3}
                 className="opio-input"
                 style={{ resize: "vertical" }}
               />
