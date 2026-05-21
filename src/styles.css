@@ -83,15 +83,6 @@ body {
 }
 .about-rise.in { opacity: 1; transform: translateY(0) scale(1); }
 
-.draw-line {
-  height: 1px;
-  width: 100%;
-  background: #3D0A0F;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.draw-line.in { transform: scaleX(1); }
 
 .opio-field {
   position: relative;
