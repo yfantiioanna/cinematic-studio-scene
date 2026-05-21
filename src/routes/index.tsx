@@ -225,7 +225,7 @@ function Index() {
             imageBorderRadius="4px"
             openedImageBorderRadius="6px"
             autoRotate={true}
-            autoRotateSpeed={1}
+            autoRotateSpeed={0.015}
             onUserDragStart={() => setHintHidden(true)}
           />
         </div>
