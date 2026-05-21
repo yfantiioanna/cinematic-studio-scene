@@ -218,9 +218,10 @@ function Index() {
               g21, g22, g23,
             ]}
             overlayBlurColor="#110608"
-            grayscale={true}
-            openedImageWidth="380px"
-            openedImageHeight="480px"
+            grayscale={false}
+            fit={0.6}
+            openedImageWidth="420px"
+            openedImageHeight="530px"
             imageBorderRadius="4px"
             openedImageBorderRadius="6px"
             autoRotate={true}
