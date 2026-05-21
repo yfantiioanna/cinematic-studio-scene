@@ -155,9 +155,9 @@ function Index() {
           }}
         >
           <div className="reveal-stagger">
-            <div style={SECTION_LABEL}>ΤΟ ΣΤΟΥΝΤΙΟ</div>
+            <div style={SECTION_LABEL}>THE STUDIO</div>
             <h2 style={{ ...H2, fontSize: "clamp(32px, 4.5vw, 52px)", marginTop: 28 }}>
-              Ένας χώρος για κάθε δημιουργικό όραμα
+              A space for every creative vision
             </h2>
             <p
               style={{
@@ -169,10 +169,10 @@ function Index() {
                 maxWidth: 560,
               }}
             >
-              Το OPIO Concept Studio είναι μια πολυδιάστατη καλλιτεχνική καινοτομία στη
-              Θεσσαλονίκη. Σχεδιασμένο για φωτογραφικό στούντιο, live performances, runway
-              shows, workshops και εκθέσεις τέχνης — το OPIO προσφέρει έναν χώρο υψηλής
-              αισθητικής για κάθε μορφή δημιουργίας.
+              OPIO Concept Studio is a multidimensional artistic innovation in
+              Thessaloniki. Designed for photo shoots, live performances, runway
+              shows, workshops and art exhibitions — OPIO offers a space of refined
+              aesthetics for every form of creation.
             </p>
           </div>
           <div className="reveal" style={{ overflow: "hidden" }}>
@@ -241,7 +241,7 @@ function Index() {
             className="reveal"
             style={{ ...SECTION_LABEL, textAlign: "center", marginBottom: 36 }}
           >
-            ΥΠΗΡΕΣΙΕΣ
+            SERVICES
           </div>
           <div className="services-card reveal">
             <div
@@ -253,8 +253,8 @@ function Index() {
               }}
             >
               {[
-                ["01", "Events & Performances", "Live performances, runway shows, concept projects και παραστάσεις κάθε κλίμακας."],
-                ["02", "Showroom", "Μόνιμη έδρα δύο clothing brands — ένας χώρος όπου η μόδα συναντά την τέχνη."],
+                ["01", "Events & Performances", "Live performances, runway shows, concept projects and productions of every scale."],
+                ["02", "Showroom", "Permanent home to two clothing brands — a space where fashion meets art."],
               ].map(([num, title, desc]) => (
                 <div key={num} className="service-card">
                   <div
@@ -306,9 +306,9 @@ function Index() {
         style={{ padding: "40px 6vw", backgroundImage: `url(${contactBg})` }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
-          <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
+          <div style={SECTION_LABEL}>CONTACT</div>
           <h2 style={{ ...H2, fontSize: "clamp(32px, 4vw, 48px)", marginTop: 24 }}>
-            Ας μιλήσουμε
+            Let's talk
           </h2>
         </div>
 
@@ -316,7 +316,7 @@ function Index() {
         <div ref={contactBoxRef} className="contact-box reveal">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="opio-field">
-              <label className="opio-label" htmlFor="name">Ονοματεπώνυμο</label>
+              <label className="opio-label" htmlFor="name">Full name</label>
               <input id="name" type="text" className="opio-input" />
             </div>
             <div className="opio-field">
@@ -324,11 +324,11 @@ function Index() {
               <input id="email" type="email" className="opio-input" />
             </div>
             <div className="opio-field">
-              <label className="opio-label" htmlFor="subject">Θέμα</label>
+              <label className="opio-label" htmlFor="subject">Subject</label>
               <input id="subject" type="text" className="opio-input" />
             </div>
             <div className="opio-field" style={{ marginBottom: 20 }}>
-              <label className="opio-label" htmlFor="message">Μήνυμα</label>
+              <label className="opio-label" htmlFor="message">Message</label>
               <textarea
                 id="message"
                 rows={3}
@@ -360,7 +360,7 @@ function Index() {
                 ((e.currentTarget as HTMLButtonElement).style.background = "#3D0A0F")
               }
             >
-              Αποστολή
+              Send
             </button>
           </form>
 
@@ -376,7 +376,7 @@ function Index() {
           >
             <div>T. 6975526194</div>
             <div>E. info@opioconceptstudio.gr</div>
-            <div style={{ marginTop: 8 }}>Ζεφύρων 3, Θεσσαλονίκη</div>
+            <div style={{ marginTop: 8 }}>Zefyron 3, Thessaloniki</div>
           </div>
         </div>
         </div>
