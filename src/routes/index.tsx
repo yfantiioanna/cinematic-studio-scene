@@ -317,6 +317,7 @@ function Index() {
           </h2>
         </div>
 
+        <div className="contact-layout">
         <div ref={contactBoxRef} className="contact-box reveal">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="opio-field">
