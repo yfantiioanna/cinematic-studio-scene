@@ -15,11 +15,12 @@ export function Nav() {
         top: 0,
         left: 0,
         right: 0,
-        height: 80,
+        height: 112,
         zIndex: 80,
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
+        paddingTop: 6,
         background: scrolled ? "rgba(13,10,10,0.4)" : "transparent",
         backdropFilter: scrolled ? "blur(8px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(8px)" : "none",
@@ -31,7 +32,7 @@ export function Nav() {
         src={logo}
         alt="OPIO"
         style={{
-          height: 68,
+          height: 100,
           width: "auto",
           filter: "brightness(0) invert(1)",
         }}
