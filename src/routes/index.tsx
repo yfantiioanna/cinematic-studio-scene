@@ -316,7 +316,7 @@ function Index() {
         <div ref={contactBoxRef} className="contact-box reveal">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="opio-field">
-              <label className="opio-label" htmlFor="name">Ονοματεπώνυμο</label>
+              <label className="opio-label" htmlFor="name">Full name</label>
               <input id="name" type="text" className="opio-input" />
             </div>
             <div className="opio-field">
@@ -324,11 +324,11 @@ function Index() {
               <input id="email" type="email" className="opio-input" />
             </div>
             <div className="opio-field">
-              <label className="opio-label" htmlFor="subject">Θέμα</label>
+              <label className="opio-label" htmlFor="subject">Subject</label>
               <input id="subject" type="text" className="opio-input" />
             </div>
             <div className="opio-field" style={{ marginBottom: 20 }}>
-              <label className="opio-label" htmlFor="message">Μήνυμα</label>
+              <label className="opio-label" htmlFor="message">Message</label>
               <textarea
                 id="message"
                 rows={3}
