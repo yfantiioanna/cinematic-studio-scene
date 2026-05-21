@@ -42,7 +42,7 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
         top: "50%",
         left: 0,
         right: 0,
-        transform: `translateY(-50%) scale(${logoVisible ? 1 : 1})`,
+        transform: `translateY(-50%) scale(${logoVisible ? 1 : 0.8})`,
         height: 126,
       };
 
