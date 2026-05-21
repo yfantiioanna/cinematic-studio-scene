@@ -307,7 +307,8 @@ function Index() {
       {/* CONTACT */}
       <section
         ref={contactSectionRef}
-        style={{ background: "#110608", padding: "60px 6vw" }}
+        className="contact-bg"
+        style={{ padding: "60px 6vw", backgroundImage: `url(${contactBg})` }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={SECTION_LABEL}>ΕΠΙΚΟΙΝΩΝΙΑ</div>
