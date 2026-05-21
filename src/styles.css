@@ -194,3 +194,50 @@ body {
   text-decoration: none;
 }
 .social-link:hover { color: var(--opio-greige); }
+
+/* Contact section with background image */
+.contact-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+.contact-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 10, 10, 0.55);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-bg > * { position: relative; z-index: 1; }
+
+.contact-layout {
+  display: flex;
+  gap: 48px;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.contact-layout > .contact-box { flex: 1 1 480px; margin: 0; }
+.contact-layout > .reflective-card-wrap { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 900px) {
+  .contact-layout { flex-direction: column-reverse; align-items: center; }
+}
+
+/* Dark-glass form variant inside contact-bg */
+.contact-bg .contact-box {
+  background: rgba(20, 12, 14, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.contact-bg .opio-input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 12px 14px;
+}
+.contact-bg .opio-input:focus { border-color: rgba(255,255,255,0.45); }
+.contact-bg .opio-label { color: rgba(255,255,255,0.7); }
