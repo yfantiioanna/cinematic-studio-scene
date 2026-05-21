@@ -32,18 +32,18 @@ export function IntroOverlay({ onComplete }: { onComplete: () => void }) {
 
   const logoStyle: React.CSSProperties = moved
     ? {
-        top: 8,
+        top: 6,
         left: 0,
         right: 0,
         transform: "translateY(0) scale(1)",
-        height: 144,
+        height: 100,
       }
     : {
         top: "50%",
         left: 0,
         right: 0,
-        transform: `translateY(-50%) scale(${logoVisible ? 1 : 0.8})`,
-        height: 180,
+        transform: `translateY(-50%) scale(${logoVisible ? 1 : 1})`,
+        height: 126,
       };
 
   return (
