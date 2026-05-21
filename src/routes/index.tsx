@@ -23,6 +23,9 @@ import g17 from "../assets/gallery/g17.jpg";
 import g18 from "../assets/gallery/g18.jpg";
 import g19 from "../assets/gallery/g19.jpg";
 import g20 from "../assets/gallery/g20.jpg";
+import g21 from "../assets/gallery/g21.jpg";
+import g22 from "../assets/gallery/g22.jpg";
+import g23 from "../assets/gallery/g23.jpg";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -212,6 +215,7 @@ function Index() {
               "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-1.jpg",
               g1, g2, g3, g4, g5, g6, g7, g8, g9, g10,
               g11, g12, g13, g14, g15, g16, g17, g18, g19, g20,
+              g21, g22, g23,
             ]}
             overlayBlurColor="#110608"
             grayscale={true}
