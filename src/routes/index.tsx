@@ -33,6 +33,7 @@ import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
 import heroVideo from "../assets/opioV2.mp4";
+import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
