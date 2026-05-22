@@ -126,32 +126,33 @@ function Index() {
         className="hero-mask"
       >
         <video
-          poster="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-3-scaled.jpg"
           autoPlay
           muted
-          
           loop
           playsInline
           // @ts-ignore - iOS Safari attribute
           webkit-playsinline="true"
+          // @ts-ignore - HTML attribute (not just JSX prop)
+          x5-playsinline="true"
           preload="auto"
           controls={false}
           disablePictureInPicture
+          src="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/opioV2.mp4"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           ref={(el) => {
             if (!el) return;
             el.muted = true;
+            el.defaultMuted = true;
             const tryPlay = () => el.play().catch(() => {});
             tryPlay();
-            const onTouch = () => { tryPlay(); document.removeEventListener("touchstart", onTouch); };
-            document.addEventListener("touchstart", onTouch, { once: true });
+            el.addEventListener("loadedmetadata", tryPlay);
+            el.addEventListener("canplay", tryPlay);
+            const onTouch = () => { tryPlay(); };
+            document.addEventListener("touchstart", onTouch, { once: true, passive: true });
+            document.addEventListener("click", onTouch, { once: true });
           }}
-        >
-          <source
-            src="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/opioV2.mp4"
-            type="video/mp4"
-          />
-        </video>
+        />
+
         <div
           style={{
             position: "absolute",
