@@ -230,12 +230,6 @@ function Index() {
         <div className="gallery-section" style={{ flex: 1, minHeight: 0, position: "relative" }}>
           <DomeGallery
             images={[
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-scaled.jpg",
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-3-scaled.jpg",
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-2-scaled.jpg",
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-4-scaled.jpg",
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-scaled.jpg",
-              "https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-1-1.jpg",
               g1, g2, g3, g4, g5, g6, g7, g8, g9, g10,
               g11, g12, g13, g14, g15, g16, g17, g18, g19, g20,
               g21, g22, g23, g24, g25, g26, g27,
