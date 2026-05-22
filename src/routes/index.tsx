@@ -80,15 +80,21 @@ function Index() {
     video.autoplay = true;
     video.loop = true;
 
-    const playVideo = () => {
-      video.muted = true;
-      void video.play().catch(() => {});
+    const playVideo = async () => {
+      try {
+        video.muted = true;
+        await video.play();
+        setShowTapToPlay(false);
+      } catch {
+        if (video.paused) setShowTapToPlay(true);
+      }
     };
 
-    playVideo();
+    void playVideo();
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
+    video.addEventListener("playing", () => setShowTapToPlay(false));
     document.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
