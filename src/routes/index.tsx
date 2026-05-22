@@ -304,6 +304,9 @@ function Index() {
             overlayBlurColor="#110608"
             grayscale={false}
             fit={0.6}
+            segments={isMobile ? 20 : 35}
+            dragSensitivity={isMobile ? 12 : 20}
+            dragDampening={isMobile ? 1 : 2}
             openedImageWidth="420px"
             openedImageHeight="530px"
             imageBorderRadius="4px"
