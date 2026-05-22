@@ -36,6 +36,7 @@ import heroVideo from "../assets/opioV2-autoplay.mp4";
 import heroLoopFallback from "../assets/opioV2-loop.webp";
 import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
+import { useIsMobile } from "../hooks/use-mobile";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -66,6 +67,7 @@ function Index() {
   const [hintHidden, setHintHidden] = useState(false);
   const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const isMobile = useIsMobile();
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
@@ -302,6 +304,9 @@ function Index() {
             overlayBlurColor="#110608"
             grayscale={false}
             fit={0.6}
+            segments={isMobile ? 20 : 35}
+            dragSensitivity={isMobile ? 12 : 20}
+            dragDampening={isMobile ? 1 : 2}
             openedImageWidth="420px"
             openedImageHeight="530px"
             imageBorderRadius="4px"
