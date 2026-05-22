@@ -33,6 +33,7 @@ import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
 import heroVideo from "../assets/opioV2.mp4";
+import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -62,6 +63,7 @@ const HERO_VIDEO_SRC = heroVideo;
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
+  const [showTapToPlay, setShowTapToPlay] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
@@ -78,15 +80,21 @@ function Index() {
     video.autoplay = true;
     video.loop = true;
 
-    const playVideo = () => {
-      video.muted = true;
-      void video.play().catch(() => {});
+    const playVideo = async () => {
+      try {
+        video.muted = true;
+        await video.play();
+        setShowTapToPlay(false);
+      } catch {
+        if (video.paused) setShowTapToPlay(true);
+      }
     };
 
-    playVideo();
+    void playVideo();
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
+    video.addEventListener("playing", () => setShowTapToPlay(false));
     document.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
@@ -176,10 +184,52 @@ function Index() {
           preload="auto"
           controls={false}
           disablePictureInPicture
+          poster={heroPoster}
           src={HERO_VIDEO_SRC}
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           ref={heroVideoRef}
         />
+        {showTapToPlay && (
+          <button
+            type="button"
+            aria-label="Play video"
+            onClick={() => {
+              const v = heroVideoRef.current;
+              if (!v) return;
+              v.muted = true;
+              v.play().then(() => setShowTapToPlay(false)).catch(() => {});
+            }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(17,6,8,0.25)",
+              border: "none",
+              cursor: "pointer",
+              color: "#fff",
+            }}
+          >
+            <span
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(8px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "1px solid rgba(255,255,255,0.6)",
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </button>
+        )}
 
         <div
           style={{
