@@ -63,6 +63,7 @@ const HERO_VIDEO_SRC = heroVideo;
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
+  const [showTapToPlay, setShowTapToPlay] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
