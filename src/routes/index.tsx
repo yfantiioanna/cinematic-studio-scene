@@ -36,6 +36,7 @@ import heroVideo from "../assets/opioV2-autoplay.mp4";
 import heroLoopFallback from "../assets/opioV2-loop.webp";
 import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
+import { useIsMobile } from "../hooks/use-mobile";
 
 export const Route = createFileRoute("/")({
   component: Index,
