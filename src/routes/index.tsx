@@ -32,7 +32,8 @@ import g26 from "../assets/gallery/g26.jpg";
 import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
-import heroVideo from "../assets/opioV2.mp4";
+import heroVideo from "../assets/opioV2-autoplay.mp4";
+import heroLoopFallback from "../assets/opioV2-loop.webp";
 import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
 
@@ -63,7 +64,7 @@ const HERO_VIDEO_SRC = heroVideo;
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
-  const [showTapToPlay, setShowTapToPlay] = useState(false);
+  const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
@@ -83,10 +84,11 @@ function Index() {
     const playVideo = async () => {
       try {
         video.muted = true;
+        video.defaultMuted = true;
         await video.play();
-        setShowTapToPlay(false);
+        setHeroVideoPlaying(true);
       } catch {
-        if (video.paused) setShowTapToPlay(true);
+        setHeroVideoPlaying(false);
       }
     };
 
@@ -94,7 +96,8 @@ function Index() {
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
-    video.addEventListener("playing", () => setShowTapToPlay(false));
+    video.addEventListener("playing", () => setHeroVideoPlaying(true));
+    video.addEventListener("pause", () => setHeroVideoPlaying(false));
     document.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
@@ -172,6 +175,21 @@ function Index() {
         }}
         className="hero-mask"
       >
+        <img
+          src={heroLoopFallback}
+          alt="OPIO Concept Studio hero video loop"
+          aria-hidden={heroVideoPlaying}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            opacity: heroVideoPlaying ? 0 : 1,
+            transition: "opacity 300ms ease",
+          }}
+        />
         <video
           autoPlay
           muted
@@ -186,50 +204,18 @@ function Index() {
           disablePictureInPicture
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            opacity: heroVideoPlaying ? 1 : 0,
+            transition: "opacity 300ms ease",
+          }}
           ref={heroVideoRef}
         />
-        {showTapToPlay && (
-          <button
-            type="button"
-            aria-label="Play video"
-            onClick={() => {
-              const v = heroVideoRef.current;
-              if (!v) return;
-              v.muted = true;
-              v.play().then(() => setShowTapToPlay(false)).catch(() => {});
-            }}
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(17,6,8,0.25)",
-              border: "none",
-              cursor: "pointer",
-              color: "#fff",
-            }}
-          >
-            <span
-              style={{
-                width: 80,
-                height: 80,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.15)",
-                backdropFilter: "blur(8px)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "1px solid rgba(255,255,255,0.6)",
-              }}
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </span>
-          </button>
-        )}
 
         <div
           style={{
