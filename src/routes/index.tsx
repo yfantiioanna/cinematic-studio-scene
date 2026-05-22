@@ -56,13 +56,51 @@ const H2: React.CSSProperties = {
   margin: 0,
 };
 
+const HERO_VIDEO_SRC = "https://opioconceptstudio.gr/wp-content/uploads/2024/11/opioV2.mp4";
+
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.loop = true;
+
+    const playVideo = () => {
+      video.muted = true;
+      void video.play().catch(() => {});
+    };
+
+    playVideo();
+    video.addEventListener("loadedmetadata", playVideo);
+    video.addEventListener("loadeddata", playVideo);
+    video.addEventListener("canplay", playVideo);
+    document.addEventListener("touchstart", playVideo, { passive: true });
+    document.addEventListener("pointerdown", playVideo, { passive: true });
+    document.addEventListener("click", playVideo);
+    document.addEventListener("visibilitychange", playVideo);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", playVideo);
+      video.removeEventListener("loadeddata", playVideo);
+      video.removeEventListener("canplay", playVideo);
+      document.removeEventListener("touchstart", playVideo);
+      document.removeEventListener("pointerdown", playVideo);
+      document.removeEventListener("click", playVideo);
+      document.removeEventListener("visibilitychange", playVideo);
+    };
+  }, []);
 
   useEffect(() => {
     if (!introDone) return;
