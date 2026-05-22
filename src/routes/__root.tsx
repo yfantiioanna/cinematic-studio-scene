@@ -74,9 +74,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "OPIO Concept Studio — Θεσσαλονίκη" },
       { name: "description", content: "OPIO Concept Studio: φωτογραφικό στούντιο, live performances, runway shows, workshops και εκθέσεις τέχνης στη Θεσσαλονίκη." },
-      { property: "og:title", content: "OPIO Concept Studio" },
-      { property: "og:description", content: "Ένας χώρος υψηλής αισθητικής για κάθε μορφή δημιουργίας." },
+      { property: "og:title", content: "OPIO Concept Studio — Θεσσαλονίκη" },
+      { property: "og:description", content: "OPIO Concept Studio: φωτογραφικό στούντιο, live performances, runway shows, workshops και εκθέσεις τέχνης στη Θεσσαλονίκη." },
       { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "OPIO Concept Studio — Θεσσαλονίκη" },
+      { name: "twitter:description", content: "OPIO Concept Studio: φωτογραφικό στούντιο, live performances, runway shows, workshops και εκθέσεις τέχνης στη Θεσσαλονίκη." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/31a9624e-272a-4535-93c7-59847e01b792/id-preview-c6916611--d9c455de-9383-41c1-bb09-de0546ddf609.lovable.app-1779398792916.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/31a9624e-272a-4535-93c7-59847e01b792/id-preview-c6916611--d9c455de-9383-41c1-bb09-de0546ddf609.lovable.app-1779398792916.png" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
