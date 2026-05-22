@@ -67,6 +67,20 @@ main.sphere-main {
   backdrop-filter: blur(3px);
 }
 
+/* Mobile perf: backdrop-filter on 175+ 3D-transformed tiles tanks scroll/drag FPS.
+   Drop the blur layer and reduce compositing pressure on small screens. */
+@media (max-width: 768px) {
+  .overlay--blur {
+    display: none;
+  }
+  .item__image {
+    transition: none;
+  }
+  .item {
+    transition: none;
+  }
+}
+
 .item {
   width: calc(var(--item-width) * var(--item-size-x));
   height: calc(var(--item-height) * var(--item-size-y));
