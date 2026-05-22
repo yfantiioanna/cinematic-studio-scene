@@ -129,7 +129,7 @@ function Index() {
           poster="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/unnamed-3-scaled.jpg"
           autoPlay
           muted
-          defaultMuted
+          defaultmuted="true"
           loop
           playsInline
           // @ts-ignore - iOS Safari attribute
