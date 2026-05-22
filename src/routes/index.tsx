@@ -67,6 +67,7 @@ function Index() {
   const [hintHidden, setHintHidden] = useState(false);
   const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const isMobile = useIsMobile();
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
