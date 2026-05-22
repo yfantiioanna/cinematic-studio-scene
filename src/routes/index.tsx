@@ -32,6 +32,7 @@ import g26 from "../assets/gallery/g26.jpg";
 import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
+import heroVideo from "../assets/opioV2.mp4";
 import { useReveal } from "../hooks/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -56,7 +57,7 @@ const H2: React.CSSProperties = {
   margin: 0,
 };
 
-const HERO_VIDEO_SRC = "https://opioconceptstudio.gr/wp-content/uploads/2024/11/opioV2.mp4";
+const HERO_VIDEO_SRC = heroVideo;
 
 function Index() {
   const [introDone, setIntroDone] = useState(false);
