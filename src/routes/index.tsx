@@ -32,7 +32,8 @@ import g26 from "../assets/gallery/g26.jpg";
 import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
-import heroVideo from "../assets/opioV2.mp4";
+import heroVideo from "../assets/opioV2-autoplay.mp4";
+import heroLoopFallback from "../assets/opioV2-loop.webp";
 import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
 
@@ -63,7 +64,7 @@ const HERO_VIDEO_SRC = heroVideo;
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
-  const [showTapToPlay, setShowTapToPlay] = useState(false);
+  const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
@@ -83,10 +84,11 @@ function Index() {
     const playVideo = async () => {
       try {
         video.muted = true;
+        video.defaultMuted = true;
         await video.play();
-        setShowTapToPlay(false);
+        setHeroVideoPlaying(true);
       } catch {
-        if (video.paused) setShowTapToPlay(true);
+        setHeroVideoPlaying(false);
       }
     };
 
@@ -94,7 +96,8 @@ function Index() {
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
-    video.addEventListener("playing", () => setShowTapToPlay(false));
+    video.addEventListener("playing", () => setHeroVideoPlaying(true));
+    video.addEventListener("pause", () => setHeroVideoPlaying(false));
     document.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
