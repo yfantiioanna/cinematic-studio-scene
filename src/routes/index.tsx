@@ -175,20 +175,9 @@ function Index() {
           preload="auto"
           controls={false}
           disablePictureInPicture
-          src="https://www.opioconceptstudio.gr/wp-content/uploads/2024/11/opioV2.mp4"
+          src={HERO_VIDEO_SRC}
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          ref={(el) => {
-            if (!el) return;
-            el.muted = true;
-            el.defaultMuted = true;
-            const tryPlay = () => el.play().catch(() => {});
-            tryPlay();
-            el.addEventListener("loadedmetadata", tryPlay);
-            el.addEventListener("canplay", tryPlay);
-            const onTouch = () => { tryPlay(); };
-            document.addEventListener("touchstart", onTouch, { once: true, passive: true });
-            document.addEventListener("click", onTouch, { once: true });
-          }}
+          ref={heroVideoRef}
         />
 
         <div
