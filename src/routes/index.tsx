@@ -32,8 +32,7 @@ import g26 from "../assets/gallery/g26.jpg";
 import g27 from "../assets/gallery/g27.jpg";
 import contactBg from "../assets/gallery/g3.jpg";
 import studioImg from "../assets/studio.jpg";
-import heroVideo from "../assets/opioV2-autoplay.mp4";
-import heroLoopFallback from "../assets/opioV2-loop.webp";
+import heroVideo from "../assets/opioV2-smooth.mp4";
 import heroPoster from "../assets/opioV2-poster.jpg";
 import { useReveal } from "../hooks/useReveal";
 import { useIsMobile } from "../hooks/use-mobile";
@@ -65,7 +64,6 @@ const HERO_VIDEO_SRC = heroVideo;
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [hintHidden, setHintHidden] = useState(false);
-  const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
   const contactBoxRef = useRef<HTMLDivElement>(null);
@@ -84,13 +82,14 @@ function Index() {
     video.loop = true;
 
     const playVideo = async () => {
+      if (document.visibilityState === "hidden") return;
       try {
         video.muted = true;
         video.defaultMuted = true;
         await video.play();
-        setHeroVideoPlaying(true);
       } catch {
-        setHeroVideoPlaying(false);
+        // Muted autoplay is supported on mobile, but if the browser delays it,
+        // the poster remains visible until the next trusted interaction.
       }
     };
 
@@ -98,8 +97,6 @@ function Index() {
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
-    video.addEventListener("playing", () => setHeroVideoPlaying(true));
-    video.addEventListener("pause", () => setHeroVideoPlaying(false));
     document.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
@@ -177,21 +174,6 @@ function Index() {
         }}
         className="hero-mask"
       >
-        <img
-          src={heroLoopFallback}
-          alt="OPIO Concept Studio hero video loop"
-          aria-hidden={heroVideoPlaying}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            opacity: heroVideoPlaying ? 0 : 1,
-            transition: "opacity 300ms ease",
-          }}
-        />
         <video
           autoPlay
           muted
@@ -206,6 +188,7 @@ function Index() {
           disablePictureInPicture
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
+          className="hero-video"
           style={{
             position: "absolute",
             inset: 0,
@@ -213,8 +196,6 @@ function Index() {
             height: "100%",
             objectFit: "cover",
             display: "block",
-            opacity: heroVideoPlaying ? 1 : 0,
-            transition: "opacity 300ms ease",
           }}
           ref={heroVideoRef}
         />
