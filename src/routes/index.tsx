@@ -40,6 +40,7 @@ function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const gallerySlotRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const contactBoxRef = useRef<HTMLDivElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
@@ -89,10 +90,23 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    if (!introDone) return;
-    const timer = window.setTimeout(() => setGalleryReady(true), 1600);
-    return () => window.clearTimeout(timer);
-  }, [introDone]);
+    if (!introDone || galleryReady) return;
+    const target = gallerySlotRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGalleryReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [introDone, galleryReady]);
 
   useEffect(() => {
     if (!introDone) return;
@@ -248,7 +262,7 @@ function Index() {
           <GallerySection isMobile={isMobile} />
         </Suspense>
       ) : (
-        <section style={{ height: "100vh", background: "#110608" }} />
+        <section ref={gallerySlotRef} style={{ height: "100vh", background: "#110608" }} />
       )}
 
 
