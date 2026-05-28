@@ -67,8 +67,10 @@ main.sphere-main {
   backdrop-filter: blur(3px);
 }
 
-/* Mobile perf: backdrop-filter on 175+ 3D-transformed tiles tanks scroll/drag FPS.
-   Drop the blur layer and reduce compositing pressure on small screens. */
+/* Mobile perf + UX: drop backdrop-filter blur (kills FPS over 175 3D tiles),
+   and allow native vertical page scroll. With touch-action: pan-y the browser
+   handles vertical swipes (page scroll) and only horizontal drags reach the
+   gesture handler to rotate the globe. */
 @media (max-width: 768px) {
   .overlay--blur {
     display: none;
@@ -78,6 +80,9 @@ main.sphere-main {
   }
   .item {
     transition: none;
+  }
+  main.sphere-main {
+    touch-action: pan-y;
   }
 }
 
