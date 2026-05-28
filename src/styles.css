@@ -130,8 +130,32 @@ body {
 .gallery-hint.hidden { opacity: 0; }
 
 .hero-mask {
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-          mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  position: relative;
+  isolation: isolate;
+}
+.hero-mask::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--opio-bg));
+  z-index: 1;
+}
+.hero-video {
+  background: var(--opio-bg);
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+  .grain-overlay {
+    opacity: 0.22;
+    animation: none;
+    mix-blend-mode: normal;
+  }
 }
 
 .gallery-section {
