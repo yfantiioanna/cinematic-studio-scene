@@ -101,7 +101,7 @@ function Index() {
           observer.disconnect();
         }
       },
-      { rootMargin: "800px 0px" }
+      { rootMargin: "0px" }
     );
 
     observer.observe(target);
