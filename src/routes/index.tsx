@@ -454,7 +454,7 @@ function Index() {
             fontFamily: '"Play", sans-serif',
           }}
         >
-          OPIO Concept Studio © 2025
+          OPIO Concept Studio © 2026
         </div>
       </footer>
     </div>
