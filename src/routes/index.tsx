@@ -347,7 +347,7 @@ function Index() {
 
         <div className="contact-layout">
         <div ref={contactBoxRef} className="contact-box reveal">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form name="contact" data-netlify="true" onSubmit={(e) => e.preventDefault()}>
             <div className="opio-field">
               <label className="opio-label" htmlFor="name">Full name</label>
               <input id="name" type="text" className="opio-input" />
