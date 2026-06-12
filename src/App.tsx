@@ -46,8 +46,8 @@ function Index() {
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
 
-  useEffect(() => {
-    const video = heroVideoRef.current;
+  const primeHeroVideo = useCallback((video: HTMLVideoElement | null, shouldLoad = false) => {
+    heroVideoRef.current = video;
     if (!video) return;
 
     video.muted = true;
@@ -55,30 +55,67 @@ function Index() {
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
+    video.controls = false;
+    video.setAttribute("autoplay", "");
+    video.setAttribute("muted", "");
+    video.setAttribute("loop", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.setAttribute("x5-playsinline", "");
+    video.removeAttribute("controls");
+    if (shouldLoad) video.load();
+  }, []);
 
-    const playVideo = () => {
-      video.muted = true;
-      video.play().catch(() => {
-        // Silently handle blocked autoplay
-      });
-    };
+  const playHeroVideo = useCallback(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
 
-    playVideo();
+    primeHeroVideo(video);
+    video.play().catch(() => {
+      // Silently handle blocked autoplay
+    });
+  }, [primeHeroVideo]);
+
+  const setHeroVideoRef = useCallback(
+    (video: HTMLVideoElement | null) => {
+      primeHeroVideo(video, true);
+      if (video) window.setTimeout(playHeroVideo, 0);
+    },
+    [playHeroVideo, primeHeroVideo]
+  );
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    primeHeroVideo(video);
+    playHeroVideo();
+    const retryDelays = [100, 300, 700, 1500, 3000, 4000, 5500, 7000];
+    const retryTimers = retryDelays.map((delay) => window.setTimeout(playHeroVideo, delay));
 
     const handleUserInteraction = () => {
-      playVideo();
+      playHeroVideo();
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
+    };
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) playHeroVideo();
     };
 
     document.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
     document.addEventListener("click", handleUserInteraction, { once: true });
+    window.addEventListener("pageshow", playHeroVideo);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
+      retryTimers.forEach(window.clearTimeout);
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("pageshow", playHeroVideo);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [introDone, playHeroVideo, primeHeroVideo]);
 
   useEffect(() => {
     if (!introDone || galleryReady) return;
@@ -165,13 +202,15 @@ function Index() {
           muted
           loop
           playsInline
-          // @ts-ignore - iOS Safari attribute
-          webkit-playsinline="true"
-          // @ts-ignore - HTML attribute (not just JSX prop)
-          x5-playsinline="true"
           preload="auto"
           controls={false}
           disablePictureInPicture
+          onLoadedMetadata={playHeroVideo}
+          onLoadedData={playHeroVideo}
+          onCanPlay={playHeroVideo}
+          onCanPlayThrough={playHeroVideo}
+          onSuspend={playHeroVideo}
+          onStalled={playHeroVideo}
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
           className="hero-video"
@@ -183,7 +222,7 @@ function Index() {
             objectFit: "cover",
             display: "block",
           }}
-          ref={heroVideoRef}
+          ref={setHeroVideoRef}
         />
 
         <div
