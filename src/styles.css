@@ -1,7 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+
+@font-face {
+  font-family: "Play";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/play/v21/6aez4K2oVqwIjtI.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Play";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf") format("truetype");
+}
 
 :root {
   --opio-bg: #110608;
