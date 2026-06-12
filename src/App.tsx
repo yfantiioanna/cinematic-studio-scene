@@ -31,6 +31,11 @@ const H2: React.CSSProperties = {
 };
 
 const HERO_VIDEO_SRC = heroVideo;
+const MOBILE_VIDEO_ATTRIBUTES: Record<string, string> = {
+  playsinline: "true",
+  "webkit-playsinline": "true",
+  "x5-playsinline": "true",
+};
 const GallerySection = lazy(() =>
   import("./components/GallerySection").then((module) => ({ default: module.GallerySection }))
 );
@@ -193,9 +198,7 @@ function Index() {
           muted
           loop
           playsInline
-          playsinline="true"
-          webkit-playsinline="true"
-          x5-playsinline="true"
+          {...MOBILE_VIDEO_ATTRIBUTES}
           preload="auto"
           controls={false}
           disablePictureInPicture
