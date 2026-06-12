@@ -46,7 +46,7 @@ function Index() {
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
 
-  const primeHeroVideo = useCallback((video: HTMLVideoElement | null) => {
+  const primeHeroVideo = useCallback((video: HTMLVideoElement | null, shouldLoad = false) => {
     heroVideoRef.current = video;
     if (!video) return;
 
@@ -63,7 +63,7 @@ function Index() {
     video.setAttribute("webkit-playsinline", "");
     video.setAttribute("x5-playsinline", "");
     video.removeAttribute("controls");
-    video.load();
+    if (shouldLoad) video.load();
   }, []);
 
   const playHeroVideo = useCallback(() => {
@@ -214,7 +214,10 @@ function Index() {
             objectFit: "cover",
             display: "block",
           }}
-          ref={primeHeroVideo}
+          ref={(video) => {
+            primeHeroVideo(video, true);
+            if (video) playHeroVideo();
+          }}
         />
 
         <div
