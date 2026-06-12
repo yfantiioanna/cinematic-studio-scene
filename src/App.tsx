@@ -1,17 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { IntroOverlay } from "../components/IntroOverlay";
-import { Nav } from "../components/Nav";
-import contactBg from "../assets/gallery/g3.jpg";
-import studioImg from "../assets/studio.jpg";
-import heroVideo from "../assets/opioV2-smooth.mp4";
-import heroPoster from "../assets/opioV2-poster.jpg";
-import { useReveal } from "../hooks/useReveal";
-import { useIsMobile } from "../hooks/use-mobile";
+import { IntroOverlay } from "./components/IntroOverlay";
+import { Nav } from "./components/Nav";
+import contactBg from "./assets/gallery/g3.jpg";
+import studioImg from "./assets/studio.jpg";
+import heroVideo from "./assets/opioV2-smooth.mp4";
+import heroPoster from "./assets/opioV2-poster.jpg";
+import { useReveal } from "./hooks/useReveal";
+import { useIsMobile } from "./hooks/use-mobile";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+export default function App() {
+  return <Index />;
+}
 
 const SECTION_LABEL: React.CSSProperties = {
   fontFamily: '"Play", sans-serif',
@@ -33,7 +32,7 @@ const H2: React.CSSProperties = {
 
 const HERO_VIDEO_SRC = heroVideo;
 const GallerySection = lazy(() =>
-  import("../components/GallerySection").then((module) => ({ default: module.GallerySection }))
+  import("./components/GallerySection").then((module) => ({ default: module.GallerySection }))
 );
 
 function Index() {
