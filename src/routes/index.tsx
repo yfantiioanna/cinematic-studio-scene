@@ -202,8 +202,8 @@ function Index() {
           controls={false}
           disablePictureInPicture
           poster={heroPoster}
-          src={HERO_VIDEO_SRC}
           className="hero-video"
+          defaultMuted
           style={{
             position: "absolute",
             inset: 0,
@@ -213,7 +213,9 @@ function Index() {
             display: "block",
           }}
           ref={heroVideoRef}
-        />
+        >
+          <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        </video>
 
         <div
           style={{
