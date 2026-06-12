@@ -251,6 +251,13 @@ body {
   position: relative;
   background-size: cover;
   background-position: center;
+  padding: 40px 6vw;
+}
+@media (max-width: 900px) {
+  .contact-bg { padding: 32px 5vw; }
+}
+@media (max-width: 640px) {
+  .contact-bg { padding: 24px 16px; }
 }
 .contact-bg::before {
   content: '';
@@ -275,6 +282,11 @@ body {
 .contact-layout > .reflective-card-wrap { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; }
 @media (max-width: 900px) {
   .contact-layout { flex-direction: column-reverse; align-items: center; }
+  .contact-layout > .contact-box { max-width: none; width: 100%; }
+}
+@media (max-width: 640px) {
+  .contact-box { padding: 20px; }
+  .opio-field { margin-bottom: 14px; }
 }
 
 /* Dark-glass form variant inside contact-bg */
