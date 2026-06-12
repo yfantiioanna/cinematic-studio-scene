@@ -76,6 +76,14 @@ function Index() {
     });
   }, [primeHeroVideo]);
 
+  const setHeroVideoRef = useCallback(
+    (video: HTMLVideoElement | null) => {
+      primeHeroVideo(video, true);
+      if (video) window.setTimeout(playHeroVideo, 0);
+    },
+    [playHeroVideo, primeHeroVideo]
+  );
+
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
@@ -214,10 +222,7 @@ function Index() {
             objectFit: "cover",
             display: "block",
           }}
-          ref={(video) => {
-            primeHeroVideo(video, true);
-            if (video) playHeroVideo();
-          }}
+          ref={setHeroVideoRef}
         />
 
         <div
