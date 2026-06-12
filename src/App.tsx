@@ -46,8 +46,8 @@ function Index() {
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
 
-  useEffect(() => {
-    const video = heroVideoRef.current;
+  const primeHeroVideo = useCallback((video: HTMLVideoElement | null) => {
+    heroVideoRef.current = video;
     if (!video) return;
 
     video.muted = true;
@@ -55,8 +55,24 @@ function Index() {
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
+    video.controls = false;
+    video.setAttribute("autoplay", "");
+    video.setAttribute("muted", "");
+    video.setAttribute("loop", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.setAttribute("x5-playsinline", "");
+    video.removeAttribute("controls");
+  }, []);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    primeHeroVideo(video);
 
     const playVideo = () => {
+      primeHeroVideo(video);
       video.muted = true;
       video.play().catch(() => {
         // Silently handle blocked autoplay
@@ -64,6 +80,8 @@ function Index() {
     };
 
     playVideo();
+    const retryDelays = [100, 300, 700, 1500, 3000];
+    const retryTimers = retryDelays.map((delay) => window.setTimeout(playVideo, delay));
 
     const handleUserInteraction = () => {
       playVideo();
@@ -73,12 +91,17 @@ function Index() {
 
     document.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
     document.addEventListener("click", handleUserInteraction, { once: true });
+    window.addEventListener("pageshow", playVideo);
+    document.addEventListener("visibilitychange", playVideo);
 
     return () => {
+      retryTimers.forEach(window.clearTimeout);
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("pageshow", playVideo);
+      document.removeEventListener("visibilitychange", playVideo);
     };
-  }, []);
+  }, [introDone, primeHeroVideo]);
 
   useEffect(() => {
     if (!introDone || galleryReady) return;
@@ -183,7 +206,7 @@ function Index() {
             objectFit: "cover",
             display: "block",
           }}
-          ref={heroVideoRef}
+          ref={primeHeroVideo}
         />
 
         <div
