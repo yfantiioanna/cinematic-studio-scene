@@ -47,67 +47,47 @@ function Index() {
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
 
-  const startHeroVideo = useCallback(async () => {
+  useEffect(() => {
     const video = heroVideoRef.current;
-    if (!video || document.visibilityState === "hidden") return;
+    if (!video) return;
 
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    video.setAttribute("x5-playsinline", "");
-    video.setAttribute("autoplay", "");
 
-    try {
-      await video.play();
-    } catch {
-      // If the browser delays autoplay, the retry loop and first interaction
-      // listeners below will start the muted video as soon as it is allowed.
-    }
-  }, []);
+    const playVideo = async () => {
+      if (document.visibilityState === "hidden") return;
+      try {
+        video.muted = true;
+        video.defaultMuted = true;
+        await video.play();
+      } catch {
+        // Muted autoplay is supported on mobile, but if the browser delays it,
+        // the poster remains visible until the next trusted interaction.
+      }
+    };
 
-  useEffect(() => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-
-    const ensurePlayback = () => void startHeroVideo();
-    const keepAlive = window.setInterval(() => {
-      if (video.paused) void startHeroVideo();
-    }, 900);
-
-    void startHeroVideo();
-    video.addEventListener("loadedmetadata", ensurePlayback);
-    video.addEventListener("loadeddata", ensurePlayback);
-    video.addEventListener("canplay", ensurePlayback);
-    video.addEventListener("pause", ensurePlayback);
-    window.addEventListener("pageshow", ensurePlayback);
-    document.addEventListener("touchstart", ensurePlayback, { passive: true });
-    document.addEventListener("pointerdown", ensurePlayback, { passive: true });
-    document.addEventListener("click", ensurePlayback);
-    document.addEventListener("visibilitychange", ensurePlayback);
+    void playVideo();
+    video.addEventListener("loadedmetadata", playVideo);
+    video.addEventListener("loadeddata", playVideo);
+    video.addEventListener("canplay", playVideo);
+    document.addEventListener("touchstart", playVideo, { passive: true });
+    document.addEventListener("pointerdown", playVideo, { passive: true });
+    document.addEventListener("click", playVideo);
+    document.addEventListener("visibilitychange", playVideo);
 
     return () => {
-      window.clearInterval(keepAlive);
-      video.removeEventListener("loadedmetadata", ensurePlayback);
-      video.removeEventListener("loadeddata", ensurePlayback);
-      video.removeEventListener("canplay", ensurePlayback);
-      video.removeEventListener("pause", ensurePlayback);
-      window.removeEventListener("pageshow", ensurePlayback);
-      document.removeEventListener("touchstart", ensurePlayback);
-      document.removeEventListener("pointerdown", ensurePlayback);
-      document.removeEventListener("click", ensurePlayback);
-      document.removeEventListener("visibilitychange", ensurePlayback);
+      video.removeEventListener("loadedmetadata", playVideo);
+      video.removeEventListener("loadeddata", playVideo);
+      video.removeEventListener("canplay", playVideo);
+      document.removeEventListener("touchstart", playVideo);
+      document.removeEventListener("pointerdown", playVideo);
+      document.removeEventListener("click", playVideo);
+      document.removeEventListener("visibilitychange", playVideo);
     };
-  }, [startHeroVideo]);
-
-  useEffect(() => {
-    if (!introDone) return;
-    requestAnimationFrame(() => void startHeroVideo());
-  }, [introDone, startHeroVideo]);
+  }, []);
 
   useEffect(() => {
     if (!introDone || galleryReady) return;
@@ -202,6 +182,7 @@ function Index() {
           controls={false}
           disablePictureInPicture
           poster={heroPoster}
+          src={HERO_VIDEO_SRC}
           className="hero-video"
           style={{
             position: "absolute",
@@ -212,9 +193,7 @@ function Index() {
             display: "block",
           }}
           ref={heroVideoRef}
-        >
-          <source src={HERO_VIDEO_SRC} type="video/mp4" />
-        </video>
+        />
 
         <div
           style={{
@@ -357,7 +336,7 @@ function Index() {
       <section
         ref={contactSectionRef}
         className="contact-bg"
-        style={{ backgroundImage: `url(${contactBg})` }}
+        style={{ padding: "40px 6vw", backgroundImage: `url(${contactBg})` }}
       >
         <div className="reveal" style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={SECTION_LABEL}>CONTACT</div>

@@ -1,22 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-
-@font-face {
-  font-family: "Play";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/play/v21/6aez4K2oVqwIjtI.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Play";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf") format("truetype");
-}
 
 :root {
   --opio-bg: #110608;
@@ -251,13 +236,6 @@ body {
   position: relative;
   background-size: cover;
   background-position: center;
-  padding: 40px 6vw;
-}
-@media (max-width: 900px) {
-  .contact-bg { padding: 32px 5vw; }
-}
-@media (max-width: 640px) {
-  .contact-bg { padding: 24px 16px; }
 }
 .contact-bg::before {
   content: '';
@@ -282,11 +260,6 @@ body {
 .contact-layout > .reflective-card-wrap { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; }
 @media (max-width: 900px) {
   .contact-layout { flex-direction: column-reverse; align-items: center; }
-  .contact-layout > .contact-box { max-width: none; width: 100%; }
-}
-@media (max-width: 640px) {
-  .contact-box { padding: 20px; }
-  .opio-field { margin-bottom: 14px; }
 }
 
 /* Dark-glass form variant inside contact-bg */
