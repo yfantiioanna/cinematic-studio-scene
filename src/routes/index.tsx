@@ -203,7 +203,6 @@ function Index() {
           disablePictureInPicture
           poster={heroPoster}
           className="hero-video"
-          defaultMuted
           style={{
             position: "absolute",
             inset: 0,
