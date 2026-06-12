@@ -56,35 +56,27 @@ function Index() {
     video.autoplay = true;
     video.loop = true;
 
-    const playVideo = async () => {
-      if (document.visibilityState === "hidden") return;
-      try {
-        video.muted = true;
-        video.defaultMuted = true;
-        await video.play();
-      } catch {
-        // Muted autoplay is supported on mobile, but if the browser delays it,
-        // the poster remains visible until the next trusted interaction.
-      }
+    const playVideo = () => {
+      video.muted = true;
+      video.play().catch(() => {
+        // Silently handle blocked autoplay
+      });
     };
 
-    void playVideo();
-    video.addEventListener("loadedmetadata", playVideo);
-    video.addEventListener("loadeddata", playVideo);
-    video.addEventListener("canplay", playVideo);
-    document.addEventListener("touchstart", playVideo, { passive: true });
-    document.addEventListener("pointerdown", playVideo, { passive: true });
-    document.addEventListener("click", playVideo);
-    document.addEventListener("visibilitychange", playVideo);
+    playVideo();
+
+    const handleUserInteraction = () => {
+      playVideo();
+      document.removeEventListener("touchstart", handleUserInteraction);
+      document.removeEventListener("click", handleUserInteraction);
+    };
+
+    document.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
+    document.addEventListener("click", handleUserInteraction, { once: true });
 
     return () => {
-      video.removeEventListener("loadedmetadata", playVideo);
-      video.removeEventListener("loadeddata", playVideo);
-      video.removeEventListener("canplay", playVideo);
-      document.removeEventListener("touchstart", playVideo);
-      document.removeEventListener("pointerdown", playVideo);
-      document.removeEventListener("click", playVideo);
-      document.removeEventListener("visibilitychange", playVideo);
+      document.removeEventListener("touchstart", handleUserInteraction);
+      document.removeEventListener("click", handleUserInteraction);
     };
   }, []);
 
