@@ -56,36 +56,65 @@ function Index() {
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    let cancelled = false;
 
     const playVideo = async () => {
+      if (cancelled) return;
       if (document.visibilityState === "hidden") return;
       try {
         video.muted = true;
         video.defaultMuted = true;
-        await video.play();
+        const p = video.play();
+        if (p && typeof p.then === "function") await p;
       } catch {
-        // Muted autoplay is supported on mobile, but if the browser delays it,
-        // the poster remains visible until the next trusted interaction.
+        // Will retry on next event / user interaction.
       }
+    };
+
+    const kickstart = () => {
+      // Some browsers need a load() before play() succeeds after suspension.
+      try {
+        if (video.readyState < 2) video.load();
+      } catch {}
+      void playVideo();
     };
 
     void playVideo();
     video.addEventListener("loadedmetadata", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("canplay", playVideo);
+    video.addEventListener("suspend", kickstart);
+    video.addEventListener("stalled", kickstart);
+    video.addEventListener("pause", playVideo);
     document.addEventListener("touchstart", playVideo, { passive: true });
+    document.addEventListener("touchend", playVideo, { passive: true });
     document.addEventListener("pointerdown", playVideo, { passive: true });
     document.addEventListener("click", playVideo);
+    document.addEventListener("scroll", playVideo, { passive: true });
     document.addEventListener("visibilitychange", playVideo);
+    window.addEventListener("focus", playVideo);
+    window.addEventListener("pageshow", playVideo);
 
     return () => {
+      cancelled = true;
       video.removeEventListener("loadedmetadata", playVideo);
       video.removeEventListener("loadeddata", playVideo);
       video.removeEventListener("canplay", playVideo);
+      video.removeEventListener("suspend", kickstart);
+      video.removeEventListener("stalled", kickstart);
+      video.removeEventListener("pause", playVideo);
       document.removeEventListener("touchstart", playVideo);
+      document.removeEventListener("touchend", playVideo);
       document.removeEventListener("pointerdown", playVideo);
       document.removeEventListener("click", playVideo);
+      document.removeEventListener("scroll", playVideo);
       document.removeEventListener("visibilitychange", playVideo);
+      window.removeEventListener("focus", playVideo);
+      window.removeEventListener("pageshow", playVideo);
     };
   }, []);
 
