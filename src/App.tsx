@@ -63,6 +63,7 @@ function Index() {
     video.setAttribute("webkit-playsinline", "");
     video.setAttribute("x5-playsinline", "");
     video.removeAttribute("controls");
+    video.load();
   }, []);
 
   const playHeroVideo = useCallback(() => {
@@ -199,6 +200,9 @@ function Index() {
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
           onCanPlay={playHeroVideo}
+          onCanPlayThrough={playHeroVideo}
+          onSuspend={playHeroVideo}
+          onStalled={playHeroVideo}
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
           className="hero-video"
