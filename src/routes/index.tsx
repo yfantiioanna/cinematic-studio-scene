@@ -364,7 +364,7 @@ function Index() {
               <label className="opio-label" htmlFor="message">Message</label>
               <textarea
                 id="message"
-                rows={3}
+                rows={4}
                 className="opio-input"
                 style={{ resize: "vertical" }}
               />
