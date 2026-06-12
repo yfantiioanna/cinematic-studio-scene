@@ -188,6 +188,8 @@ function Index() {
           muted
           loop
           playsInline
+          // @ts-ignore - force literal mobile Safari/Android attribute
+          playsinline="true"
           // @ts-ignore - iOS Safari attribute
           webkit-playsinline="true"
           // @ts-ignore - HTML attribute (not just JSX prop)
