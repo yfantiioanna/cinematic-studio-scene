@@ -65,43 +65,48 @@ function Index() {
     video.removeAttribute("controls");
   }, []);
 
+  const playHeroVideo = useCallback(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    primeHeroVideo(video);
+    video.play().catch(() => {
+      // Silently handle blocked autoplay
+    });
+  }, [primeHeroVideo]);
+
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
 
     primeHeroVideo(video);
-
-    const playVideo = () => {
-      primeHeroVideo(video);
-      video.muted = true;
-      video.play().catch(() => {
-        // Silently handle blocked autoplay
-      });
-    };
-
-    playVideo();
+    playHeroVideo();
     const retryDelays = [100, 300, 700, 1500, 3000];
-    const retryTimers = retryDelays.map((delay) => window.setTimeout(playVideo, delay));
+    const retryTimers = retryDelays.map((delay) => window.setTimeout(playHeroVideo, delay));
 
     const handleUserInteraction = () => {
-      playVideo();
+      playHeroVideo();
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
     };
 
+    const handleVisibilityChange = () => {
+      if (!document.hidden) playHeroVideo();
+    };
+
     document.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
     document.addEventListener("click", handleUserInteraction, { once: true });
-    window.addEventListener("pageshow", playVideo);
-    document.addEventListener("visibilitychange", playVideo);
+    window.addEventListener("pageshow", playHeroVideo);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       retryTimers.forEach(window.clearTimeout);
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
-      window.removeEventListener("pageshow", playVideo);
-      document.removeEventListener("visibilitychange", playVideo);
+      window.removeEventListener("pageshow", playHeroVideo);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [introDone, primeHeroVideo]);
+  }, [introDone, playHeroVideo, primeHeroVideo]);
 
   useEffect(() => {
     if (!introDone || galleryReady) return;
@@ -188,15 +193,15 @@ function Index() {
           muted
           loop
           playsInline
-          // @ts-ignore - force literal mobile Safari/Android attribute
           playsinline="true"
-          // @ts-ignore - iOS Safari attribute
           webkit-playsinline="true"
-          // @ts-ignore - HTML attribute (not just JSX prop)
           x5-playsinline="true"
           preload="auto"
           controls={false}
           disablePictureInPicture
+          onLoadedMetadata={playHeroVideo}
+          onLoadedData={playHeroVideo}
+          onCanPlay={playHeroVideo}
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
           className="hero-video"
