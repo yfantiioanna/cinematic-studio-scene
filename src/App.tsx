@@ -97,7 +97,7 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
-    playHeroVideo();
+setTimeout(playHeroVideo, 1000);
     const retryDelays = [100, 300, 700, 1500, 3000, 4000, 5500, 7000];
     const retryTimers = retryDelays.map((delay) => window.setTimeout(playHeroVideo, delay));
 
