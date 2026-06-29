@@ -40,6 +40,7 @@ const GallerySection = lazy(() =>
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const playPendingRef = useRef(false);
   const gallerySlotRef = useRef<HTMLElement>(null);
@@ -242,7 +243,7 @@ function Index() {
           onLoadedData={playHeroVideo}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
-          poster={heroPoster}
+          onPlaying={() => setVideoPlaying(true)}
           src={HERO_VIDEO_SRC}
           className="hero-video"
           style={{
@@ -253,6 +254,8 @@ function Index() {
             objectFit: "cover",
             display: "block",
             pointerEvents: "none",
+            opacity: videoPlaying ? 1 : 0,
+            transition: "opacity 0.3s ease",
           }}
           ref={setHeroVideoRef}
         />
