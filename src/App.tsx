@@ -5,6 +5,7 @@ import contactBg from "./assets/gallery/g3.jpg";
 import studioImg from "./assets/studio.jpg";
 import heroVideo from "./assets/opioV2-smooth.mp4";
 import heroPoster from "./assets/opioV2-poster.jpg";
+import heroLoop from "./assets/opioV2-loop.webp";
 import { useReveal } from "./hooks/useReveal";
 import { useIsMobile } from "./hooks/use-mobile";
 
@@ -38,6 +39,7 @@ const GallerySection = lazy(() =>
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
+  const [heroVideoActive, setHeroVideoActive] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const gallerySlotRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
@@ -76,10 +78,19 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
-    video.play().catch(() => {
-      // Silently handle blocked autoplay
-    });
+    video
+      .play()
+      .then(() => setHeroVideoActive(true))
+      .catch(() => setHeroVideoActive(false));
   }, [primeHeroVideo]);
+
+  const handleHeroVideoPlaying = useCallback(() => {
+    setHeroVideoActive(true);
+  }, []);
+
+  const handleHeroVideoStopped = useCallback(() => {
+    setHeroVideoActive(false);
+  }, []);
 
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
@@ -202,6 +213,21 @@ function Index() {
         }}
         className="hero-mask"
       >
+        <img
+          src={heroLoop}
+          alt=""
+          aria-hidden="true"
+          className="hero-video-fallback"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            pointerEvents: "none",
+          }}
+        />
         <video
           autoPlay
           muted
@@ -214,9 +240,12 @@ function Index() {
           disableRemotePlayback
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
-          onPlaying={playHeroVideo}
+          onPlay={handleHeroVideoPlaying}
+          onPlaying={handleHeroVideoPlaying}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
+          onPause={handleHeroVideoStopped}
+          onError={handleHeroVideoStopped}
           onSuspend={playHeroVideo}
           onStalled={playHeroVideo}
           poster={heroPoster}
@@ -230,6 +259,8 @@ function Index() {
             objectFit: "cover",
             display: "block",
             pointerEvents: "none",
+            opacity: heroVideoActive ? 1 : 0,
+            transition: "opacity 180ms linear",
           }}
           ref={setHeroVideoRef}
         />
