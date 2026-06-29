@@ -5,6 +5,7 @@ import contactBg from "./assets/gallery/g3.jpg";
 import studioImg from "./assets/studio.jpg";
 import heroVideo from "./assets/opioV2-smooth.mp4";
 import heroPoster from "./assets/opioV2-poster.jpg";
+import heroLoop from "./assets/opioV2-loop.gif";
 import { useReveal } from "./hooks/useReveal";
 import { useIsMobile } from "./hooks/use-mobile";
 
@@ -76,9 +77,11 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
-    video.play().catch(() => {
-      // Silently handle blocked autoplay
-    });
+    video
+      .play()
+      .catch(() => {
+        // Silently handle blocked autoplay; animated fallback remains visible.
+      });
   }, [primeHeroVideo]);
 
   const setHeroVideoRef = useCallback(
@@ -202,6 +205,21 @@ function Index() {
         }}
         className="hero-mask"
       >
+        <img
+          src={heroLoop}
+          alt=""
+          aria-hidden="true"
+          className="hero-video-fallback"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            pointerEvents: "none",
+          }}
+        />
         <video
           autoPlay
           muted
@@ -214,6 +232,7 @@ function Index() {
           disableRemotePlayback
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
+          onPlay={playHeroVideo}
           onPlaying={playHeroVideo}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
