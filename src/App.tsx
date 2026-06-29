@@ -77,17 +77,13 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
-   
-  }, [primeHeroVideo]);
-console.log('[HERO VIDEO] playHeroVideo() called. paused:', video.paused, 'readyState:', video.readyState);
     video
       .play()
-      .then(() => {
-        console.log('[HERO VIDEO] ✅ play() SUCCEEDED. paused:', video.paused);
-      })
-      .catch((err) => {
-        console.log('[HERO VIDEO] ❌ play() FAILED:', err.name, '-', err.message);
+      .catch(() => {
+        // Silently handle blocked autoplay; animated fallback remains visible.
       });
+  }, [primeHeroVideo]);
+
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
       primeHeroVideo(video, true);
@@ -101,7 +97,7 @@ console.log('[HERO VIDEO] playHeroVideo() called. paused:', video.paused, 'ready
     if (!video) return;
 
     primeHeroVideo(video);
-setTimeout(playHeroVideo, 1000);
+    playHeroVideo();
     const retryDelays = [100, 300, 700, 1500, 3000, 4000, 5500, 7000];
     const retryTimers = retryDelays.map((delay) => window.setTimeout(playHeroVideo, delay));
 
