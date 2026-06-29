@@ -487,7 +487,7 @@ function Index() {
             marginBottom: 20,
           }}
         >
-          <a
+          
             className="social-link"
             href="https://www.facebook.com/profile.php?id=61566384603284"
             target="_blank"
@@ -496,7 +496,7 @@ function Index() {
           >
             Facebook
           </a>
-          <a
+          
             className="social-link"
             href="https://www.instagram.com/opio_concept_studio"
             target="_blank"
