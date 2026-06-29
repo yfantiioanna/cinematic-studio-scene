@@ -77,13 +77,17 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
+   
+  }, [primeHeroVideo]);
+console.log('[HERO VIDEO] playHeroVideo() called. paused:', video.paused, 'readyState:', video.readyState);
     video
       .play()
-      .catch(() => {
-        // Silently handle blocked autoplay; animated fallback remains visible.
+      .then(() => {
+        console.log('[HERO VIDEO] ✅ play() SUCCEEDED. paused:', video.paused);
+      })
+      .catch((err) => {
+        console.log('[HERO VIDEO] ❌ play() FAILED:', err.name, '-', err.message);
       });
-  }, [primeHeroVideo]);
-
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
       primeHeroVideo(video, true);
