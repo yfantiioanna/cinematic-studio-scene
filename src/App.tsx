@@ -56,12 +56,17 @@ function Index() {
     video.autoplay = true;
     video.loop = true;
     video.controls = false;
+    video.volume = 0;
     video.setAttribute("autoplay", "");
     video.setAttribute("muted", "");
+    video.setAttribute("defaultMuted", "");
     video.setAttribute("loop", "");
     video.setAttribute("playsinline", "");
+    video.setAttribute("playsInline", "");
     video.setAttribute("webkit-playsinline", "");
     video.setAttribute("x5-playsinline", "");
+    video.setAttribute("x5-video-player-type", "h5");
+    video.setAttribute("x5-video-player-fullscreen", "false");
     video.removeAttribute("controls");
     if (shouldLoad) video.load();
   }, []);
@@ -204,9 +209,12 @@ function Index() {
           playsInline
           preload="auto"
           controls={false}
+          aria-hidden="true"
           disablePictureInPicture
+          disableRemotePlayback
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
+          onPlaying={playHeroVideo}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
           onSuspend={playHeroVideo}
@@ -221,6 +229,7 @@ function Index() {
             height: "100%",
             objectFit: "cover",
             display: "block",
+            pointerEvents: "none",
           }}
           ref={setHeroVideoRef}
         />
