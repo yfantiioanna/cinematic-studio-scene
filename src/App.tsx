@@ -5,7 +5,7 @@ import contactBg from "./assets/gallery/g3.jpg";
 import studioImg from "./assets/studio.jpg";
 import heroVideo from "./assets/opioV2-smooth.mp4";
 import heroPoster from "./assets/opioV2-poster.jpg";
-import heroLoop from "./assets/opioV2-loop.webp";
+import heroLoop from "./assets/opioV2-loop.gif";
 import { useReveal } from "./hooks/useReveal";
 import { useIsMobile } from "./hooks/use-mobile";
 
@@ -39,7 +39,6 @@ const GallerySection = lazy(() =>
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
-  const [heroVideoActive, setHeroVideoActive] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const gallerySlotRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
@@ -80,17 +79,10 @@ function Index() {
     primeHeroVideo(video);
     video
       .play()
-      .then(() => setHeroVideoActive(true))
-      .catch(() => setHeroVideoActive(false));
+      .catch(() => {
+        // Silently handle blocked autoplay; animated fallback remains visible.
+      });
   }, [primeHeroVideo]);
-
-  const handleHeroVideoPlaying = useCallback(() => {
-    setHeroVideoActive(true);
-  }, []);
-
-  const handleHeroVideoStopped = useCallback(() => {
-    setHeroVideoActive(false);
-  }, []);
 
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
@@ -240,12 +232,10 @@ function Index() {
           disableRemotePlayback
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
-          onPlay={handleHeroVideoPlaying}
-          onPlaying={handleHeroVideoPlaying}
+          onPlay={playHeroVideo}
+          onPlaying={playHeroVideo}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
-          onPause={handleHeroVideoStopped}
-          onError={handleHeroVideoStopped}
           onSuspend={playHeroVideo}
           onStalled={playHeroVideo}
           poster={heroPoster}
@@ -259,8 +249,6 @@ function Index() {
             objectFit: "cover",
             display: "block",
             pointerEvents: "none",
-            opacity: heroVideoActive ? 1 : 0,
-            transition: "opacity 180ms linear",
           }}
           ref={setHeroVideoRef}
         />
