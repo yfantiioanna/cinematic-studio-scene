@@ -40,6 +40,7 @@ function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const playPendingRef = useRef(false);
   const gallerySlotRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const contactBoxRef = useRef<HTMLDivElement>(null);
@@ -75,16 +76,18 @@ function Index() {
   const playHeroVideo = useCallback(() => {
     const video = heroVideoRef.current;
     if (!video) return;
+    if (!video.paused || playPendingRef.current) return;
 
     primeHeroVideo(video);
-    console.log("play() called at", Date.now());
+    playPendingRef.current = true;
     video
       .play()
       .then(() => {
-        console.log("play() SUCCEEDED at", Date.now());
+        playPendingRef.current = false;
       })
       .catch((e) => {
-        console.log("play() FAILED at", Date.now(), e.name, e.message);
+        playPendingRef.current = false;
+        console.log("play() FAILED", e.name, e.message);
       });
   }, [primeHeroVideo]);
 
@@ -236,12 +239,8 @@ function Index() {
           disableRemotePlayback
           onLoadedMetadata={playHeroVideo}
           onLoadedData={playHeroVideo}
-          onPlay={playHeroVideo}
-          onPlaying={playHeroVideo}
           onCanPlay={playHeroVideo}
           onCanPlayThrough={playHeroVideo}
-          onSuspend={playHeroVideo}
-          onStalled={playHeroVideo}
           poster={heroPoster}
           src={HERO_VIDEO_SRC}
           className="hero-video"
