@@ -77,10 +77,14 @@ function Index() {
     if (!video) return;
 
     primeHeroVideo(video);
+    console.log("play() called at", Date.now());
     video
       .play()
-      .catch(() => {
-        // Silently handle blocked autoplay; animated fallback remains visible.
+      .then(() => {
+        console.log("play() SUCCEEDED at", Date.now());
+      })
+      .catch((e) => {
+        console.log("play() FAILED at", Date.now(), e.name, e.message);
       });
   }, [primeHeroVideo]);
 
