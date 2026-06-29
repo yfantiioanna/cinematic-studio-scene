@@ -1,3 +1,4 @@
+
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { IntroOverlay } from "./components/IntroOverlay";
 import { Nav } from "./components/Nav";
@@ -8,11 +9,11 @@ import heroPoster from "./assets/opioV2-poster.jpg";
 import heroLoop from "./assets/opioV2-loop.gif";
 import { useReveal } from "./hooks/useReveal";
 import { useIsMobile } from "./hooks/use-mobile";
-
+ 
 export default function App() {
   return <Index />;
 }
-
+ 
 const SECTION_LABEL: React.CSSProperties = {
   fontFamily: '"Play", sans-serif',
   fontWeight: 300,
@@ -21,7 +22,7 @@ const SECTION_LABEL: React.CSSProperties = {
   letterSpacing: "0.4em",
   color: "#7A6560",
 };
-
+ 
 const H2: React.CSSProperties = {
   fontFamily: '"Play", sans-serif',
   fontWeight: 300,
@@ -30,12 +31,12 @@ const H2: React.CSSProperties = {
   lineHeight: 1.1,
   margin: 0,
 };
-
+ 
 const HERO_VIDEO_SRC = heroVideo;
 const GallerySection = lazy(() =>
   import("./components/GallerySection").then((module) => ({ default: module.GallerySection }))
 );
-
+ 
 function Index() {
   const [introDone, setIntroDone] = useState(false);
   const [galleryReady, setGalleryReady] = useState(false);
@@ -47,11 +48,11 @@ function Index() {
   const contactSectionRef = useRef<HTMLElement>(null);
   const handleIntroComplete = useCallback(() => setIntroDone(true), []);
   useReveal();
-
+ 
   const primeHeroVideo = useCallback((video: HTMLVideoElement | null, shouldLoad = false) => {
     heroVideoRef.current = video;
     if (!video) return;
-
+ 
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
@@ -72,12 +73,12 @@ function Index() {
     video.removeAttribute("controls");
     if (shouldLoad) video.load();
   }, []);
-
+ 
   const playHeroVideo = useCallback(() => {
     const video = heroVideoRef.current;
     if (!video) return;
     if (!video.paused || playPendingRef.current) return;
-
+ 
     primeHeroVideo(video);
     playPendingRef.current = true;
     video
@@ -90,7 +91,7 @@ function Index() {
         console.log("play() FAILED", e.name, e.message);
       });
   }, [primeHeroVideo]);
-
+ 
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
       primeHeroVideo(video, true);
@@ -98,31 +99,31 @@ function Index() {
     },
     [playHeroVideo, primeHeroVideo]
   );
-
+ 
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
-
+ 
     primeHeroVideo(video);
     playHeroVideo();
     const retryDelays = [100, 300, 700, 1500, 3000, 4000, 5500, 7000];
     const retryTimers = retryDelays.map((delay) => window.setTimeout(playHeroVideo, delay));
-
+ 
     const handleUserInteraction = () => {
       playHeroVideo();
       document.removeEventListener("touchstart", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
     };
-
+ 
     const handleVisibilityChange = () => {
       if (!document.hidden) playHeroVideo();
     };
-
+ 
     document.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
     document.addEventListener("click", handleUserInteraction, { once: true });
     window.addEventListener("pageshow", playHeroVideo);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
+ 
     return () => {
       retryTimers.forEach(window.clearTimeout);
       document.removeEventListener("touchstart", handleUserInteraction);
@@ -131,12 +132,12 @@ function Index() {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [introDone, playHeroVideo, primeHeroVideo]);
-
+ 
   useEffect(() => {
     if (!introDone || galleryReady) return;
     const target = gallerySlotRef.current;
     if (!target) return;
-
+ 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -146,11 +147,11 @@ function Index() {
       },
       { rootMargin: "0px" }
     );
-
+ 
     observer.observe(target);
     return () => observer.disconnect();
   }, [introDone, galleryReady]);
-
+ 
   useEffect(() => {
     if (!introDone) return;
     const els = document.querySelectorAll(".reveal, .reveal-stagger, .about-rise, .draw-line");
@@ -168,7 +169,7 @@ function Index() {
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [introDone]);
-
+ 
   // Mouse parallax on contact box
   useEffect(() => {
     const section = contactSectionRef.current;
@@ -194,14 +195,14 @@ function Index() {
       section.removeEventListener("mouseleave", onLeave);
     };
   }, [introDone]);
-
+ 
   return (
     <div style={{ background: "#110608", color: "#fff", overflowX: "hidden", position: "relative" }}>
       <div className="grain-overlay" aria-hidden="true" />
       <IntroOverlay onComplete={handleIntroComplete} />
       {introDone && <Nav />}
-
-
+ 
+ 
       {/* HERO VIDEO */}
       <section
         style={{
@@ -255,7 +256,7 @@ function Index() {
           }}
           ref={setHeroVideoRef}
         />
-
+ 
         <div
           style={{
             position: "absolute",
@@ -267,7 +268,7 @@ function Index() {
           }}
         />
       </section>
-
+ 
       {/* ABOUT */}
       <section style={{ background: "#110608", padding: "60px 6vw" }} className="about-rise">
         <div
@@ -316,7 +317,7 @@ function Index() {
           </div>
         </div>
       </section>
-
+ 
       {/* GALLERY */}
       {galleryReady ? (
         <Suspense fallback={<section style={{ height: "100vh", background: "#110608" }} />}>
@@ -325,8 +326,8 @@ function Index() {
       ) : (
         <section ref={gallerySlotRef} style={{ height: "100vh", background: "#110608" }} />
       )}
-
-
+ 
+ 
       {/* SERVICES */}
       <section style={{ background: "#110608", padding: "60px 6vw" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -392,7 +393,7 @@ function Index() {
           </div>
         </div>
       </section>
-
+ 
       {/* CONTACT */}
       <section
         ref={contactSectionRef}
@@ -405,7 +406,7 @@ function Index() {
             Let's talk
           </h2>
         </div>
-
+ 
         <div className="contact-layout">
         <div ref={contactBoxRef} className="contact-box reveal">
           <form name="contact" data-netlify="true" onSubmit={(e) => e.preventDefault()}>
@@ -457,7 +458,7 @@ function Index() {
               Send
             </button>
           </form>
-
+ 
           <div
             style={{
               marginTop: 48,
@@ -475,7 +476,7 @@ function Index() {
         </div>
         </div>
       </section>
-
+ 
       {/* FOOTER */}
       <footer style={{ background: "#110608", padding: "24px 6vw 28px" }}>
         <div className="section-rule" style={{ maxWidth: 1200, margin: "0 auto 16px" }} />
@@ -487,7 +488,7 @@ function Index() {
             marginBottom: 20,
           }}
         >
-          
+          <a
             className="social-link"
             href="https://www.facebook.com/profile.php?id=61566384603284"
             target="_blank"
@@ -496,7 +497,7 @@ function Index() {
           >
             Facebook
           </a>
-          
+          <a
             className="social-link"
             href="https://www.instagram.com/opio_concept_studio"
             target="_blank"
@@ -521,3 +522,4 @@ function Index() {
     </div>
   );
 }
+ 
