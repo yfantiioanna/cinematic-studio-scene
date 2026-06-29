@@ -87,7 +87,7 @@ function Index() {
   const setHeroVideoRef = useCallback(
     (video: HTMLVideoElement | null) => {
       primeHeroVideo(video, true);
-      if (video) window.setTimeout(playHeroVideo, 0);
+      if (video) window.setTimeout(playHeroVideo, 500);
     },
     [playHeroVideo, primeHeroVideo]
   );
